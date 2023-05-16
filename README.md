@@ -1,8 +1,12 @@
 # Moonbase Builder
+ 
+Player controls:
+ - Movement: WASD
+ - Look around: Mouse
+ - RCS Jetpack up/down: Q/E
+ - Enter build mode: B
+ - Mine Ore: Right click
 
-Controls:
-    Movement: WASD
-    Jump: Space
-    RCS jetpack Up/Down: Q/E
-    Toggle suit lights: L
-    Enter/exit build mode: B/Esc
+Build mode camera controls:
+ - Movement: WASD
+ - Rotate: Q/E
