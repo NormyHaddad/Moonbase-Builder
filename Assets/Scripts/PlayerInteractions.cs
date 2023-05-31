@@ -9,10 +9,14 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject oreCount;
     public Camera cam;
     public GameObject lights;
+    public GameObject progressBar;
+    public int mineSpeed;
+    public AudioSource mine;
 
     bool lightsOn;
     Ray ray;
     int oreInventory;
+    float timeMouseHeld = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,15 +37,46 @@ public class PlayerInteractions : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 5))
             {
-
                 if (hit.transform.CompareTag("Ore"))
                 {
-                    gameManager.GetComponent<GameManager>().inventory["Ore"]++;
-                    if (oreCount != null)
-                    {
-                        oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + gameManager.GetComponent<GameManager>().inventory["Ore"];
-                        //gameManager.GetComponent<GameManager>().inventory["Ore"] += 1;
-                    }
+                    // Activate the progress bar
+                    progressBar.SetActive(true);
+                    progressBar.GetComponent<ProgressBar>().max = mineSpeed;
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0)) // Deactivate the progress bar
+        {
+            progressBar.SetActive(false);
+            timeMouseHeld = 0f;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            // Mine the ore
+            ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 5))
+            {
+                if (hit.transform.CompareTag("Ore"))
+                {
+                    progressBar.GetComponent<ProgressBar>().current = timeMouseHeld;
+                    timeMouseHeld += Time.deltaTime;
+                }
+            }
+
+            // If the ore is mined for x seconds
+            if (timeMouseHeld >= progressBar.GetComponent<ProgressBar>().max)
+            {
+                timeMouseHeld = 0f;
+                gameManager.GetComponent<GameManager>().inventory["Ore"]++;
+                mine.pitch = Random.Range(0.8f, 1.2f);
+                mine.Play();
+                if (oreCount != null)
+                {
+                    oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + 
+                        gameManager.GetComponent<GameManager>().inventory["Ore"];
                 }
             }
         }

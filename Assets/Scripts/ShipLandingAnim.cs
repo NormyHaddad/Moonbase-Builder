@@ -10,6 +10,8 @@ public class ShipLandingAnim : MonoBehaviour
     public float descentSpeed;
     public float decel;
 
+    public AudioSource engineRumble;
+
     public List<ParticleSystem> plumesToToggle;
     public List<GameObject> lightsToToggle;
 
@@ -39,6 +41,7 @@ public class ShipLandingAnim : MonoBehaviour
             foreach (ParticleSystem plume in plumesToToggle)
             {
                 plume.Stop();
+                engineRumble.Stop();
             }
             StartCoroutine(LoadScene());
         }
