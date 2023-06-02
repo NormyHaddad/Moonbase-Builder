@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpStrength;
     public float rcsStrength;
     public Transform orientation;
+    public AudioSource rcsHiss;
+
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -39,6 +41,21 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpStrength);
             isJumping = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
+        {
+            if(!gameManager.GetComponent<GameManager>().buildMode)
+            {
+                rcsHiss.Play();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
+        {
+            if(!gameManager.GetComponent<GameManager>().buildMode)
+            {
+                rcsHiss.Stop();
+            }
         }
     }
 

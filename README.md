@@ -14,3 +14,5 @@
 #### Sounds:  
  - Rock Smash (https://freesound.org/people/NeoSpica/sounds/512243/). Creative Commons  
  - Rumble · loop 10s (https://freesound.org/people/unfa/sounds/258339/). Creative Commons  
+ - Hissing (https://freesound.org/people/TheScarlettWitch89/sounds/415287/)  
+
