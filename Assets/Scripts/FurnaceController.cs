@@ -21,7 +21,7 @@ public class FurnaceController : MonoBehaviour
     private void Update()
     {
         //Debug.Log(furnaceInv + "     " + furnaceOut);
-        if (Input.GetKeyDown(KeyCode.E) && playerInRange && gameManager.GetComponent<GameManager>().buildMode == false)
+        if (Input.GetKeyDown(KeyCode.F) && playerInRange && gameManager.GetComponent<GameManager>().buildMode == false)
         {
             if (gameManager.GetComponent<GameManager>().inventory["Ore"] > 0) // Won't work if you have no ore to put in
             {

@@ -66,44 +66,97 @@ public class GameManager : MonoBehaviour
             LayerMask mask = LayerMask.GetMask("Ground");
             ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100, mask))
+
+            if (clone.GetComponent<BuildableObj>().isAddon) // If the object is an addon
             {
-                pos = new Vector3(Mathf.Round(2 * hit.point.x) / 2, Mathf.Round(2 * hit.point.y) / 2, Mathf.Round(2 * hit.point.z) / 2);
+                if (Physics.Raycast(ray, out hit, 100))
+                {
+                    // More sensitive y point rounding
+                    pos = new Vector3(Mathf.Round(2 * hit.point.x) / 2, 
+                        Mathf.Round(4 * hit.point.y) / 4, 
+                        Mathf.Round(2 * hit.point.z) / 2);
+                }
             }
-            if (clone != null) // Godamn null checking for no reason
+            else // If the object is not an addon
+            {
+                if (Physics.Raycast(ray, out hit, 100, mask))
+                {
+                    pos = new Vector3(Mathf.Round(2 * hit.point.x) / 2, 
+                        Mathf.Round(hit.point.y) / 2, 
+                        Mathf.Round(2 * hit.point.z) / 2);
+                }
+            }
+
+
+            if (clone != null) // null checking
                 clone.transform.position = pos;
             if (Input.GetKeyDown(KeyCode.R))
                 clone.transform.Rotate(new Vector3(0, 90, 0));
 
             if (Input.GetMouseButtonDown(0)) // Place obj
             {
-                clone.GetComponent<BuildableObj>().isBuilt = true;
-                building = false;
-                //oreInventory -= clone.GetComponent<BuildableObj>().buildCost;
-
-                // Update the GUI
-                List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
-                List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
-
-                foreach (string item in clone.GetComponent<BuildableObj>().materials)
+                if (!clone.GetComponent<BuildableObj>().isAddon) // If its a regular object
                 {
-                    if (item == "Ore")
+                    clone.GetComponent<BuildableObj>().isBuilt = true;
+                    building = false;
+
+                    // Update the GUI
+                    List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
+                    List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
+
+                    foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
                     {
-                        inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
-                        oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
-                    }         
-                    
-                    if (item == "Metal")
-                    {
-                        inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
-                        metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+                        if (item == "Ore")
+                        {
+                            inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
+                            oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                        }
+
+                        if (item == "Metal")
+                        {
+                            inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
+                            metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+                        }
                     }
+
+                    if (oreCount != null)
+                        oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
                 }
 
-                //inventory["Ore"] -= clone.GetComponent<BuildableObj>().buildCost;// Multi-item crafting, still in testing
+                if (clone.GetComponent<BuildableObj>().isAddon) // If the object is an addon
+                {
+                    Debug.Log(1);
+                    if (hit.transform.GetComponent<BuildableObj>() == null)
+                    {
+                        Debug.Log(2);
+                        DoErrorMessage("Object must be placed on another object", 6f);
+                    }
+                    else if (hit.transform.GetComponent<BuildableObj>() != null)
+                    {
+                        Debug.Log(3);
+                        clone.GetComponent<BuildableObj>().isBuilt = true;
+                        building = false;
 
-                if (oreCount != null)
-                    oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                        // Update the GUI
+                        List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
+                        List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
+
+                        foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
+                        {
+                            if (item == "Ore")
+                            {
+                                inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
+                                oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                            }
+
+                            if (item == "Metal")
+                            {
+                                inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
+                                metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -138,21 +191,10 @@ public class GameManager : MonoBehaviour
 
     public void BuildObj(GameObject objToBuild)
     {
+        // Check if you have enough materials to build it
         bool enoughMaterials = CanBuildObj(objToBuild);
 
-        // Testing the new system
-        if (enoughMaterials == true)
-            print("Success");
-        else
-            print("Failure");
-
-        // If you don't have enough to build it
-        if (enoughMaterials == false) //inventory["Ore"] < objToBuild.GetComponent<BuildableObj>().buildCost) 
-        {
-            //DoErrorMessage("Not enough materials", 5f);
-        }
-
-        else if (enoughMaterials == true) // If you have enough to build it
+        if (enoughMaterials == true) // If you have enough to build it
         {
             // Initially spawn it here so it doesn't spawn a new one every frame
             ray = cam.ScreenPointToRay(Input.mousePosition);
