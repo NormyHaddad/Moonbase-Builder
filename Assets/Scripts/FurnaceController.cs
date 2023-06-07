@@ -9,6 +9,7 @@ public class FurnaceController : MonoBehaviour
     public GameObject collectText;
     public GameObject player;
     public GameObject gameManager;
+    //public GameObject addon;
 
     public GameObject smeltLight;
 
@@ -20,7 +21,7 @@ public class FurnaceController : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(furnaceInv + "     " + furnaceOut);
+        // If the player presses F while in range of the furnace and not in build mode
         if (Input.GetKeyDown(KeyCode.F) && playerInRange && gameManager.GetComponent<GameManager>().buildMode == false)
         {
             if (gameManager.GetComponent<GameManager>().inventory["Ore"] > 0) // Won't work if you have no ore to put in
@@ -29,15 +30,12 @@ public class FurnaceController : MonoBehaviour
                 gameManager.GetComponent<GameManager>().oreCount.GetComponent<TextMeshProUGUI>().text =
                     "Ore: " + gameManager.GetComponent<GameManager>().inventory["Ore"];
 
-                //gameManager.GetComponent<GameManager>().inventory["Metal"] += 1;
-                //gameManager.GetComponent<GameManager>().metalCount.GetComponent<TextMeshProUGUI>().text =
-                //    "Metal: " + gameManager.GetComponent<GameManager>().inventory["Metal"];
-
                 furnaceInv += 1;
             }
             else
                 gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough ore", 4f);
         }
+
         if (collectText.GetComponent<TextMeshProUGUI>() != null)
             collectText.GetComponent<TextMeshProUGUI>().text = "'C' Collect " + furnaceOut.ToString() + " metal";
 
@@ -52,7 +50,9 @@ public class FurnaceController : MonoBehaviour
                 collectText.GetComponent<TextMeshPro>().text = "'C' Collect " + furnaceOut.ToString() + " metal";
         }
 
-        if (furnaceInv >= 1 && !isSmelting) // Only wanna start the coroutine once, and only when there's ore in it
+        // Only wanna start the coroutine once, and only when there's ore in it, and only when its powered
+        if (furnaceInv >= 1 && !isSmelting
+            && GetComponent<BuildableObj>().addon.transform.GetComponent<BuildableObj>().addonType == 1)
         {
             Debug.Log(1);
             StartCoroutine(SmeltOre());

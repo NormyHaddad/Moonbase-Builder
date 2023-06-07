@@ -75,6 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb36749eb42a7347807f7ce4894b5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addonPos: {fileID: 0}
+  addon: {fileID: 0}
+  addonType: 1
   buildCost: 0
   isBuilt: 0
   isAddon: 1

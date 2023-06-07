@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log(3);
                         clone.GetComponent<BuildableObj>().isBuilt = true;
+                        clone.transform.position = hit.transform.GetComponent<BuildableObj>().addonPos.transform.position;
+                        hit.transform.GetComponent<BuildableObj>().addon = clone;
                         building = false;
 
                         // Update the GUI
