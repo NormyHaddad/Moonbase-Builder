@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0)) // Place obj
             {
+                // If the object is NOT an addon
                 if (!clone.GetComponent<BuildableObj>().isAddon) // If its a regular object
                 {
                     clone.GetComponent<BuildableObj>().isBuilt = true;
@@ -123,17 +124,17 @@ public class GameManager : MonoBehaviour
                         oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
                 }
 
-                if (clone.GetComponent<BuildableObj>().isAddon) // If the object is an addon
+                // If the object is an addon
+                if (clone.GetComponent<BuildableObj>().isAddon)
                 {
-                    Debug.Log(1);
+                    // If the addon is not placed on another object
                     if (hit.transform.GetComponent<BuildableObj>() == null)
                     {
-                        Debug.Log(2);
                         DoErrorMessage("Object must be placed on another object", 6f);
                     }
+
                     else if (hit.transform.GetComponent<BuildableObj>() != null)
                     {
-                        Debug.Log(3);
                         clone.GetComponent<BuildableObj>().isBuilt = true;
                         clone.transform.position = hit.transform.GetComponent<BuildableObj>().addonPos.transform.position;
                         hit.transform.GetComponent<BuildableObj>().addon = clone;
@@ -143,7 +144,8 @@ public class GameManager : MonoBehaviour
                         List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
                         List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
 
-                        foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
+                        // Update the player inventory
+                        foreach (string item in clone.GetComponent<BuildableObj>().materials)
                         {
                             if (item == "Ore")
                             {

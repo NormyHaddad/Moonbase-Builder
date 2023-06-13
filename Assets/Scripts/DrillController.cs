@@ -42,7 +42,6 @@ public class DrillController : MonoBehaviour
             canMine = false;
             StopCoroutine(CollectOre());
             isMining = false;
-            Debug.Log("full");
         }
 
         if (Input.GetKeyDown(KeyCode.C) && playerInRange)

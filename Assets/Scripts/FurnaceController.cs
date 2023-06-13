@@ -9,7 +9,10 @@ public class FurnaceController : MonoBehaviour
     public GameObject collectText;
     public GameObject player;
     public GameObject gameManager;
-    //public GameObject addon;
+    public GameObject addon;
+
+    public GameObject powerLight;
+    public Material on;
 
     public GameObject smeltLight;
 
@@ -21,10 +24,21 @@ public class FurnaceController : MonoBehaviour
 
     private void Update()
     {
+        addon = gameObject.GetComponent<BuildableObj>().addon;
+
+        // If the furnace is powered, indicate it.
+        if (addon != null && addon.GetComponent<BuildableObj>().addonType == "PowerGen")
+            powerLight.GetComponent<MeshRenderer>().material = on;
+
         // If the player presses F while in range of the furnace and not in build mode
         if (Input.GetKeyDown(KeyCode.F) && playerInRange && gameManager.GetComponent<GameManager>().buildMode == false)
         {
-            if (gameManager.GetComponent<GameManager>().inventory["Ore"] > 0) // Won't work if you have no ore to put in
+            // If there is no power generator
+            if (addon == null || addon.GetComponent<BuildableObj>().addonType != "PowerGen")
+                gameManager.GetComponent<GameManager>().DoErrorMessage("Furnace is not powered", 3f);
+
+            // Won't work if you have no ore to put in
+            if (gameManager.GetComponent<GameManager>().inventory["Ore"] > 0)
             {
                 gameManager.GetComponent<GameManager>().inventory["Ore"] -= 1;
                 gameManager.GetComponent<GameManager>().oreCount.GetComponent<TextMeshProUGUI>().text =
@@ -52,7 +66,7 @@ public class FurnaceController : MonoBehaviour
 
         // Only wanna start the coroutine once, and only when there's ore in it, and only when its powered
         if (furnaceInv >= 1 && !isSmelting
-            && GetComponent<BuildableObj>().addon.transform.GetComponent<BuildableObj>().addonType == 1)
+            && GetComponent<BuildableObj>().addon.transform.GetComponent<BuildableObj>().addonType == "PowerGen")
         {
             Debug.Log(1);
             StartCoroutine(SmeltOre());
@@ -60,14 +74,6 @@ public class FurnaceController : MonoBehaviour
             smeltLight.SetActive(true);
         }
 
-        if (furnaceInv <= 0 && isSmelting)
-        {
-            //Debug.Log(2);
-            //StopCoroutine(SmeltOre());
-            //Debug.Log("why?");
-            //isSmelting = false;
-            //smeltLight.SetActive(false);
-        }
     }
 
     IEnumerator SmeltOre()
