@@ -12,6 +12,7 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject progressBar;
     public int mineSpeed;
     public AudioSource mine;
+    public ParticleSystem mineFX;
 
     bool lightsOn;
     Ray ray;
@@ -72,6 +73,8 @@ public class PlayerInteractions : MonoBehaviour
                 timeMouseHeld = 0f;
                 gameManager.GetComponent<GameManager>().inventory["Ore"]++;
                 mine.pitch = Random.Range(0.8f, 1.2f);
+                mineFX.transform.position = hit.point;
+                mineFX.Play();
                 mine.Play();
                 if (oreCount != null)
                 {

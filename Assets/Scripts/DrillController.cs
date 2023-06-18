@@ -9,12 +9,18 @@ public class DrillController : MonoBehaviour
     public GameObject gameManager;
     public LayerMask oreLayer;
     public int storageLimit;
+    public ParticleSystem drillFX;
 
     GameObject player;
+    public GameObject addon;
+    public GameObject powerIndicator;
+    public Material on;
     int oreStorage;
     bool playerInRange;
     bool canMine;
     bool isMining;
+    bool isPowered = false;
+
     void Start()
     {
         playerInRange = false;  
@@ -27,14 +33,24 @@ public class DrillController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        addon = gameObject.GetComponent<BuildableObj>().addon;
+
+        // If the hab is powered, indicate it.
+        if (addon != null && addon.GetComponent<BuildableObj>().addonType == "PowerGen")
+        {
+            powerIndicator.GetComponent<MeshRenderer>().material = on;
+            isPowered = true;
+        }
+
         Ray newRay = new Ray(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1, 0));
         Debug.DrawRay(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1.5f, 0), Color.magenta, 1f);
         RaycastHit hit;
-        if (Physics.Raycast(newRay, out hit, 1, oreLayer) && !isMining && oreStorage < storageLimit)
+        if (Physics.Raycast(newRay, out hit, 1, oreLayer) && !isMining && oreStorage < storageLimit && isPowered)
         {
             canMine = true;
             StartCoroutine(CollectOre());
             isMining = true;
+            drillFX.Play();
         }
 
         if (oreStorage >= storageLimit)
@@ -42,6 +58,7 @@ public class DrillController : MonoBehaviour
             canMine = false;
             StopCoroutine(CollectOre());
             isMining = false;
+            drillFX.Stop();
         }
 
         if (Input.GetKeyDown(KeyCode.C) && playerInRange)
