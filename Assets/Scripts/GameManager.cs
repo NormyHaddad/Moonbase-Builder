@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject oreCount;
     public GameObject metalCount;
     public GameObject errorMessage;
+    public GameObject buildInfo;
 
     GameObject clone;
     public bool buildMode = false;
@@ -45,6 +46,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (buildInfo.activeSelf)
+        {
+            buildInfo.transform.position = Input.mousePosition;
+        }
+
         if(errorIsActive)
         {
             errorCounter -= Time.deltaTime;
@@ -191,6 +197,16 @@ public class GameManager : MonoBehaviour
         buildScreen.SetActive(false);
         if (clone != null && clone.GetComponent<BuildableObj>().isBuilt == false)
             Destroy(clone);
+    }
+
+    public void ShowBuildTooltip(string name, List<string> materials, List<int> amount)
+    {
+        buildInfo.SetActive(true);
+    }
+
+    public void HideBuildTooltip()
+    {
+        buildInfo?.SetActive(false);
     }
 
     public void BuildObj(GameObject objToBuild)

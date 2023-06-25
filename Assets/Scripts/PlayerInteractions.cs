@@ -13,6 +13,7 @@ public class PlayerInteractions : MonoBehaviour
     public int mineSpeed;
     public AudioSource mine;
     public ParticleSystem mineFX;
+    public GameObject pickaxe;
 
     bool lightsOn;
     Ray ray;
@@ -43,6 +44,9 @@ public class PlayerInteractions : MonoBehaviour
                     // Activate the progress bar
                     progressBar.SetActive(true);
                     progressBar.GetComponent<ProgressBar>().max = mineSpeed;
+
+                    // Start the pickaxe animation
+                    pickaxe.GetComponent<PickaxeController>().isMining = true;
                 }
             }
         }
@@ -51,6 +55,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             progressBar.SetActive(false);
             timeMouseHeld = 0f;
+            pickaxe.GetComponent<PickaxeController>().isMining = false;
         }
 
         if (Input.GetMouseButton(0))
