@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject metalCount;
     public GameObject errorMessage;
     public GameObject buildInfo;
+    public Vector3 tooltipOffset;
 
     GameObject clone;
     public bool buildMode = false;
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         if (buildInfo.activeSelf)
         {
-            buildInfo.transform.position = Input.mousePosition;
+            buildInfo.transform.position = Input.mousePosition + tooltipOffset;
         }
 
         if(errorIsActive)
@@ -202,11 +203,26 @@ public class GameManager : MonoBehaviour
     public void ShowBuildTooltip(string name, List<string> materials, List<int> amount)
     {
         buildInfo.SetActive(true);
+        GameObject nameUI = buildInfo.transform.Find("Name").gameObject;
+        GameObject materialsUI = buildInfo.transform.Find("Materials").gameObject;
+        nameUI.GetComponent<TextMeshProUGUI>().text = name;
+        string mats = "";
+
+        // Iterate through the materials and form them into a string
+        foreach (int num in amount)
+        {
+            mats += materials[amount.IndexOf(num)];
+            mats += ": ";
+            mats += num.ToString();
+            mats += "\n";
+        }
+        mats.Remove(mats.Length - 1); // Remove the last unneeded new line
+        materialsUI.GetComponent<TextMeshProUGUI>().text = mats;
     }
 
     public void HideBuildTooltip()
     {
-        buildInfo?.SetActive(false);
+        buildInfo.SetActive(false);
     }
 
     public void BuildObj(GameObject objToBuild)

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UIButtonController : MonoBehaviour
+public class UIButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject gameManager;
     public GameObject buildableObj;
@@ -18,13 +19,19 @@ public class UIButtonController : MonoBehaviour
         
     }
 
-    private void OnMouseOver()
+
+    public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        Debug.Log(1);
         string name = buildableObj.GetComponent<BuildableObj>().name;
+        Debug.Log(1);
         List<string> materials = buildableObj.GetComponent<BuildableObj>().materials;
         List<int> amount = buildableObj.GetComponent<BuildableObj>().amount;
         gameManager.GetComponent<GameManager>().ShowBuildTooltip(name, materials, amount);
+    }
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+        Debug.Log(2);
+        gameManager.GetComponent<GameManager>().HideBuildTooltip();
     }
 
     private void OnMouseExit()
