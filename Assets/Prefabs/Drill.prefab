@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8234566852060530944}
   m_Layer: 0
   m_Name: Leg.001
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 6473137090360804661}
   m_Layer: 0
   m_Name: Leg.002
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 9162253605023684017}
   m_Layer: 0
   m_Name: Leg.003
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 6755665342688965238}
   m_Layer: 0
   m_Name: Leg.004
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5396,7 +5396,7 @@ GameObject:
   - component: {fileID: 393301092046423578}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5526,7 +5526,7 @@ GameObject:
   - component: {fileID: 6365484564987843750}
   m_Layer: 0
   m_Name: Drill
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5597,6 +5597,7 @@ MonoBehaviour:
   buildCost: 0
   isBuilt: 0
   isAddon: 0
+  isColliding: 0
   materials:
   - Metal
   amount: 0a000000
@@ -5642,7 +5643,7 @@ GameObject:
   - component: {fileID: 751492242180385859}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5726,7 +5727,7 @@ GameObject:
   - component: {fileID: 8197188907305215047}
   m_Layer: 0
   m_Name: Drill
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

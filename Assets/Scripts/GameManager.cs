@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // If the tooltip is active, make it follow the mouse
         if (buildInfo.activeSelf)
         {
             buildInfo.transform.position = Input.mousePosition + tooltipOffset;
@@ -103,32 +104,42 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) // Place obj
             {
                 // If the object is NOT an addon
-                if (!clone.GetComponent<BuildableObj>().isAddon) // If its a regular object
+                if (!clone.GetComponent<BuildableObj>().isAddon)
                 {
-                    clone.GetComponent<BuildableObj>().isBuilt = true;
-                    building = false;
-
-                    // Update the GUI
-                    List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
-                    List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
-
-                    foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
+                    // If the building IS clipping into other buildings
+                    if (clone.GetComponent<BuildableObj>().isColliding)
                     {
-                        if (item == "Ore")
-                        {
-                            inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
-                            oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
-                        }
-
-                        if (item == "Metal")
-                        {
-                            inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
-                            metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
-                        }
+                        DoErrorMessage("Object cannot be placed inside other buildings");
                     }
 
-                    if (oreCount != null)
-                        oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                    // If the building is NOT clipping into other buildings
+                    if (!clone.GetComponent<BuildableObj>().isColliding)
+                    {
+                        clone.GetComponent<BuildableObj>().isBuilt = true;
+                        building = false;
+
+                        // Update the GUI
+                        List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
+                        List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
+
+                        foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
+                        {
+                            if (item == "Ore")
+                            {
+                                inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
+                                oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                            }
+
+                            if (item == "Metal")
+                            {
+                                inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
+                                metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+                            }
+                        }
+
+                        if (oreCount != null)
+                            oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                    }
                 }
 
                 // If the object is an addon
@@ -172,7 +183,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DoErrorMessage(string message, float timeToDecay)
+    public void DoErrorMessage(string message, float timeToDecay = 5f)
     {
         errorMessage.SetActive(true);
         errorMessage.GetComponent<TextMeshProUGUI>().text = message;

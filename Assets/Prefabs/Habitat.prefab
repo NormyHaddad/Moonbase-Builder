@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4754032916460556781}
   m_Layer: 0
   m_Name: Glass frames
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,16 +270,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 442951752151740958}
-  - component: {fileID: 121341248292869619}
   - component: {fileID: 967850509477374115}
   - component: {fileID: 967850509477374114}
-  - component: {fileID: 967850509477374117}
   - component: {fileID: 1803294774054317547}
   - component: {fileID: 6381730252454704591}
   - component: {fileID: 3099742084107701592}
   m_Layer: 0
   m_Name: Habitat
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,20 +306,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &121341248292869619
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967850509477374116}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 3.5
-  m_Height: 7.75
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.51, z: 0}
 --- !u!65 &967850509477374115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -330,11 +314,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967850509477374116}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.25, y: 1.53, z: 1.25}
-  m_Center: {x: -3.5, y: 0.75, z: 0}
+  m_Size: {x: 1, y: 1, z: 8.3}
+  m_Center: {x: 0, y: 0.75, z: -0.2}
 --- !u!65 &967850509477374114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -343,24 +327,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967850509477374116}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.25, y: 1.53, z: 1.25}
-  m_Center: {x: 3.5, y: 0.75, z: 0}
---- !u!65 &967850509477374117
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967850509477374116}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.58, y: 1.8, z: 1.95}
-  m_Center: {x: 0, y: 0.85, z: -3.75}
+  m_Size: {x: 7.9, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!114 &1803294774054317547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +350,7 @@ MonoBehaviour:
   buildCost: 10
   isBuilt: 0
   isAddon: 0
+  isColliding: 0
   materials:
   - Ore
   amount: 0a000000
@@ -429,7 +401,7 @@ GameObject:
   - component: {fileID: 9130326338358525398}
   m_Layer: 0
   m_Name: Airlock
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -527,7 +499,7 @@ GameObject:
   - component: {fileID: 922763380992024258}
   m_Layer: 0
   m_Name: Main body
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -656,7 +628,7 @@ GameObject:
   - component: {fileID: 1927711717494008346}
   m_Layer: 0
   m_Name: Connector tunnels (1)
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -754,7 +726,7 @@ GameObject:
   - component: {fileID: 8893087940800448127}
   m_Layer: 0
   m_Name: Glass
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -852,7 +824,7 @@ GameObject:
   - component: {fileID: 8722645514740068557}
   m_Layer: 0
   m_Name: Connector tunnels
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -950,7 +922,7 @@ GameObject:
   - component: {fileID: 7973412594715459333}
   m_Layer: 0
   m_Name: Connector tunnels
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

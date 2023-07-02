@@ -14,7 +14,26 @@ public class BuildableObj : MonoBehaviour
     public bool isBuilt = false;
     public bool isAddon = false;
 
+    public bool isColliding;
+
     public List<string> materials;
     public List<int> amount;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Enter collision with tag " + other.transform.tag);
+        if (other.transform.CompareTag("Building"))
+        {
+            isColliding = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exit collision with tag " + other.transform.tag);
+        if (other.transform.CompareTag("Building"))
+        {
+            isColliding = false;
+        }
+    }
 }

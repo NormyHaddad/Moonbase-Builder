@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7369976415673757907}
   m_Layer: 0
   m_Name: Dome frame
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6489656627208709782}
   m_Layer: 0
   m_Name: Cylinder.003
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 3838188708750202841}
   m_Layer: 0
   m_Name: Cylinder.001
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 276924084648394310}
   m_Layer: 0
   m_Name: Dome glass
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 8210476729565675786}
   m_Layer: 0
   m_Name: Cylinder.005
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 3001780534432300974}
   m_Layer: 0
   m_Name: Cylinder.002
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 7915134172370671630}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -811,15 +811,11 @@ GameObject:
   - component: {fileID: 5523194126702246220}
   - component: {fileID: 8349240905039891426}
   - component: {fileID: 3447757702778166559}
-  - component: {fileID: 3656085187970171024}
-  - component: {fileID: 7362594460165834180}
-  - component: {fileID: 8045886566313025189}
-  - component: {fileID: 712295985293110403}
   - component: {fileID: 3181592640463320320}
   - component: {fileID: 6414526742111560953}
   m_Layer: 0
   m_Name: lookout
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -875,11 +871,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6936406772428424048}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 1.55, z: 1.05}
-  m_Center: {x: 2.5, y: 0.75, z: 0}
+  m_Size: {x: 1, y: 1, z: 5.9}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!65 &3447757702778166559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -888,64 +884,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6936406772428424048}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 1.55, z: 1.05}
-  m_Center: {x: -2.5, y: 0.75, z: 0}
---- !u!65 &3656085187970171024
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6936406772428424048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.05, y: 1.55, z: 1.05}
-  m_Center: {x: 0, y: 0.75, z: 2.5}
---- !u!65 &7362594460165834180
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6936406772428424048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.05, y: 1.55, z: 1.05}
-  m_Center: {x: 0, y: 0.75, z: -2.5}
---- !u!136 &8045886566313025189
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6936406772428424048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 2.5
-  m_Height: 10
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.5, z: 0}
---- !u!135 &712295985293110403
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6936406772428424048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 3.1
-  m_Center: {x: 0, y: 6, z: 0}
+  m_Size: {x: 5.9, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!114 &3181592640463320320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,6 +907,7 @@ MonoBehaviour:
   buildCost: 0
   isBuilt: 0
   isAddon: 0
+  isColliding: 0
   materials:
   - Ore
   - Metal
@@ -1097,7 +1041,7 @@ GameObject:
   - component: {fileID: 2212531800269430410}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
