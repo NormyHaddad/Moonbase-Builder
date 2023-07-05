@@ -52,9 +52,11 @@ MonoBehaviour:
   buildCost: 0
   isBuilt: 0
   isAddon: 1
+  isColliding: 0
   materials:
-  - Ore
-  amount: 05000000
+  - Iron Ore
+  - Quartz
+  amount: 0500000003000000
 --- !u!1 &6121238182028318569
 GameObject:
   m_ObjectHideFlags: 0

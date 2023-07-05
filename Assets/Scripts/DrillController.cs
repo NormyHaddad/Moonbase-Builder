@@ -64,7 +64,7 @@ public class DrillController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C) && playerInRange)
         {
             gameManager.GetComponent<GameManager>().inventory["Ore"] += oreStorage;
-            gameManager.GetComponent<GameManager>().oreCount.GetComponent<TextMeshProUGUI>().text =
+            gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
                 "Ore: " + gameManager.GetComponent<GameManager>().inventory["Ore"];
             oreStorage = 0;
             text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " ore";

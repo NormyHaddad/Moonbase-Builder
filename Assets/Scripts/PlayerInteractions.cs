@@ -6,7 +6,8 @@ using TMPro;
 public class PlayerInteractions : MonoBehaviour
 {
     public GameObject gameManager;
-    public GameObject oreCount;
+    public GameObject ironOreCount;
+    public GameObject quartzCount;
     public Camera cam;
     public GameObject lights;
     public GameObject progressBar;
@@ -76,15 +77,21 @@ public class PlayerInteractions : MonoBehaviour
             if (timeMouseHeld >= progressBar.GetComponent<ProgressBar>().max)
             {
                 timeMouseHeld = 0f;
-                gameManager.GetComponent<GameManager>().inventory["Ore"]++;
+                string oreType = hit.transform.GetComponent<Ore>().oreType;
+                gameManager.GetComponent<GameManager>().inventory[oreType]++;
                 mine.pitch = Random.Range(0.8f, 1.2f);
                 mineFX.transform.position = hit.point;
                 mineFX.Play();
                 mine.Play();
-                if (oreCount != null)
+                if (ironOreCount != null)
                 {
-                    oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + 
-                        gameManager.GetComponent<GameManager>().inventory["Ore"];
+                    ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + 
+                        gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
+                }
+                if (quartzCount != null)
+                {
+                    quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " +
+                        gameManager.GetComponent<GameManager>().inventory["Quartz"];
                 }
             }
         }

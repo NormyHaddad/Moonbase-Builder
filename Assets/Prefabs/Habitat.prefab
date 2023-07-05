@@ -352,7 +352,7 @@ MonoBehaviour:
   isAddon: 0
   isColliding: 0
   materials:
-  - Ore
+  - Iron Ore
   amount: 0a000000
 --- !u!114 &6381730252454704591
 MonoBehaviour:

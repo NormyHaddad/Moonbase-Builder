@@ -38,16 +38,16 @@ public class FurnaceController : MonoBehaviour
                 gameManager.GetComponent<GameManager>().DoErrorMessage("Furnace is not powered", 3f);
 
             // Won't work if you have no ore to put in
-            if (gameManager.GetComponent<GameManager>().inventory["Ore"] > 0)
+            if (gameManager.GetComponent<GameManager>().inventory["Iron Ore"] > 0)
             {
-                gameManager.GetComponent<GameManager>().inventory["Ore"] -= 1;
-                gameManager.GetComponent<GameManager>().oreCount.GetComponent<TextMeshProUGUI>().text =
-                    "Ore: " + gameManager.GetComponent<GameManager>().inventory["Ore"];
+                gameManager.GetComponent<GameManager>().inventory["Iron Ore"] -= 1;
+                gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
+                    "Ore: " + gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
 
                 furnaceInv += 1;
             }
             else
-                gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough ore", 4f);
+                gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough iron ore", 4f);
         }
 
         if (collectText.GetComponent<TextMeshProUGUI>() != null)

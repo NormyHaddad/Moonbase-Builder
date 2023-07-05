@@ -10,8 +10,10 @@ public class GameManager : MonoBehaviour
     public GameObject hab;
     public GameObject buildScreen;
     public GameObject gameUI;
-    public GameObject oreCount;
+    public GameObject ironOreCount;
+    public GameObject quartzCount;
     public GameObject metalCount;
+    public GameObject glassCount;
     public GameObject errorMessage;
     public GameObject buildInfo;
     public Vector3 tooltipOffset;
@@ -19,7 +21,7 @@ public class GameManager : MonoBehaviour
     GameObject clone;
     public bool buildMode = false;
     public bool building = false;
-    //public int oreInventory;
+
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
 
     bool errorIsActive = false;
@@ -30,19 +32,23 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // New inventory system
-        inventory.Add("Ore", 0);
+        inventory.Add("Iron Ore", 0);
         inventory.Add("Metal", 0);
+        inventory.Add("Quartz", 0);
+        inventory.Add("Glass", 0);
 
         // Game screens
         gameUI.SetActive(true);
         buildScreen.SetActive(false);
 
         // Inventory stuff
-        inventory["Ore"] = 0;
-        inventory["Metal"] = 0;
+        //inventory["Ore"] = 0;
+        //inventory["Metal"] = 0;
 
-        oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: 0";
+        ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: 0";
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: 0";
+        quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: 0";
+        glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: 0";
     }
 
     private void Update()
@@ -124,10 +130,16 @@ public class GameManager : MonoBehaviour
 
                         foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
                         {
-                            if (item == "Ore")
+                            if (item == "Iron Ore")
                             {
-                                inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
-                                oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                                inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")];
+                                ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+                            }
+
+                            if (item == "Glass")
+                            {
+                                inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
+                                metalCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
                             }
 
                             if (item == "Metal")
@@ -135,10 +147,16 @@ public class GameManager : MonoBehaviour
                                 inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
                                 metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
                             }
+
+                            if (item == "Quartz")
+                            {
+                                inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
+                                metalCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+                            }
                         }
 
-                        if (oreCount != null)
-                            oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                        if (ironOreCount != null)
+                            ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
                     }
                 }
 
@@ -165,16 +183,28 @@ public class GameManager : MonoBehaviour
                         // Update the player inventory
                         foreach (string item in clone.GetComponent<BuildableObj>().materials)
                         {
-                            if (item == "Ore")
+                            if (item == "Iron Ore")
                             {
-                                inventory["Ore"] -= placedAmounts[placedMaterials.IndexOf("Ore")];
-                                oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: " + inventory["Ore"];
+                                inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")];
+                                ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+                            }
+
+                            if (item == "Glass")
+                            {
+                                inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
+                                metalCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
                             }
 
                             if (item == "Metal")
                             {
                                 inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
                                 metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+                            }
+
+                            if (item == "Quartz")
+                            {
+                                inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
+                                metalCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
                             }
                         }
                     }

@@ -909,9 +909,10 @@ MonoBehaviour:
   isAddon: 0
   isColliding: 0
   materials:
-  - Ore
+  - Iron Ore
   - Metal
-  amount: 0f00000005000000
+  - Quartz
+  amount: 0f000000050000000a000000
 --- !u!114 &6414526742111560953
 MonoBehaviour:
   m_ObjectHideFlags: 0

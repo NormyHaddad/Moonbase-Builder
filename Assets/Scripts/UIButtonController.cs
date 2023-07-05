@@ -24,6 +24,8 @@ public class UIButtonController : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         string name = buildableObj.GetComponent<BuildableObj>().name;
         List<string> materials = buildableObj.GetComponent<BuildableObj>().materials;
+        foreach (string i in materials)
+            Debug.Log(i);
         List<int> amount = buildableObj.GetComponent<BuildableObj>().amount;
         gameManager.GetComponent<GameManager>().ShowBuildTooltip(name, materials, amount);
     }
