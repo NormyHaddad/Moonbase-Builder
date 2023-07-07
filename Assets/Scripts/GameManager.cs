@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // New inventory system
-        inventory.Add("Iron Ore", 100);
-        inventory.Add("Metal", 100);
-        inventory.Add("Quartz", 100);
-        inventory.Add("Glass", 100);
+        inventory.Add("Iron Ore", 0);
+        inventory.Add("Metal", 0);
+        inventory.Add("Quartz", 0);
+        inventory.Add("Glass", 0);
 
         // Game screens
         gameUI.SetActive(true);
