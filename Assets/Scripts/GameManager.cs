@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // New inventory system
-        inventory.Add("Iron Ore", 0);
-        inventory.Add("Metal", 0);
-        inventory.Add("Quartz", 0);
-        inventory.Add("Glass", 0);
+        inventory.Add("Iron Ore", 100);
+        inventory.Add("Metal", 100);
+        inventory.Add("Quartz", 100);
+        inventory.Add("Glass", 100);
 
         // Game screens
         gameUI.SetActive(true);
@@ -45,10 +45,10 @@ public class GameManager : MonoBehaviour
         //inventory["Ore"] = 0;
         //inventory["Metal"] = 0;
 
-        ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: 0";
-        metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: 0";
-        quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: 0";
-        glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: 0";
+        ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+        metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+        quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+        glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
     }
 
     private void Update()
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
                             if (item == "Glass")
                             {
                                 inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
-                                metalCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
+                                glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
                             }
 
                             if (item == "Metal")
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
                             if (item == "Quartz")
                             {
                                 inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
-                                metalCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+                                quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
                             }
                         }
 
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
                             if (item == "Glass")
                             {
                                 inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
-                                metalCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
+                                glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
                             }
 
                             if (item == "Metal")
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
                             if (item == "Quartz")
                             {
                                 inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
-                                metalCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+                                quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
                             }
                         }
                     }

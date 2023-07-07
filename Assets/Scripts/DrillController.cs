@@ -15,6 +15,7 @@ public class DrillController : MonoBehaviour
     public GameObject addon;
     public GameObject powerIndicator;
     public Material on;
+    string oreType;
     int oreStorage;
     bool playerInRange;
     bool canMine;
@@ -35,7 +36,7 @@ public class DrillController : MonoBehaviour
     {
         addon = gameObject.GetComponent<BuildableObj>().addon;
 
-        // If the hab is powered, indicate it.
+        // If the drill is powered, indicate it.
         if (addon != null && addon.GetComponent<BuildableObj>().addonType == "PowerGen")
         {
             powerIndicator.GetComponent<MeshRenderer>().material = on;
@@ -45,12 +46,16 @@ public class DrillController : MonoBehaviour
         Ray newRay = new Ray(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1, 0));
         Debug.DrawRay(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1.5f, 0), Color.magenta, 1f);
         RaycastHit hit;
+
         if (Physics.Raycast(newRay, out hit, 1, oreLayer) && !isMining && oreStorage < storageLimit && isPowered)
         {
             canMine = true;
             StartCoroutine(CollectOre());
+            oreType = hit.transform.GetComponent<Ore>().oreType;
             isMining = true;
             drillFX.Play();
+            Debug.Log(oreType);
+            Debug.Log(hit.transform.tag);
         }
 
         if (oreStorage >= storageLimit)
@@ -63,11 +68,20 @@ public class DrillController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C) && playerInRange)
         {
-            gameManager.GetComponent<GameManager>().inventory["Ore"] += oreStorage;
-            gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
-                "Ore: " + gameManager.GetComponent<GameManager>().inventory["Ore"];
+            gameManager.GetComponent<GameManager>().inventory[oreType] += oreStorage;
+            if (oreType == "Iron Ore")
+            {
+                gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
+                    "Iron Ore: " + gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
+            }            
+            if (oreType == "Quartz")
+            {
+                gameManager.GetComponent<GameManager>().quartzCount.GetComponent<TextMeshProUGUI>().text =
+                    "Quartz: " + gameManager.GetComponent<GameManager>().inventory["Quartz"];
+            }
+
             oreStorage = 0;
-            text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " ore";
+            text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " " + oreType;
         }
     }
 
@@ -77,8 +91,7 @@ public class DrillController : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             oreStorage += 1;
-            text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " ore";
-            Debug.Log(oreStorage);
+            text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " " + oreType;
         }
     }
 
@@ -91,7 +104,6 @@ public class DrillController : MonoBehaviour
             //player = collision.gameObject;
             if (gameManager == null)
             {   
-                Debug.Log("no game man");
                 gameManager = collision.gameObject.GetComponent<PlayerInteractions>().gameManager;
             }
         }

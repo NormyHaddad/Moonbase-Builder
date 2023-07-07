@@ -21,7 +21,6 @@ public class BuildableObj : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Enter collision with tag " + other.transform.tag);
         if (other.transform.CompareTag("Building"))
         {
             isColliding = true;
@@ -30,7 +29,6 @@ public class BuildableObj : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exit collision with tag " + other.transform.tag);
         if (other.transform.CompareTag("Building"))
         {
             isColliding = false;
