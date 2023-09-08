@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public enum hotbarStates
+{
+    pickaxe,
+    waterProbe
+}
 public class PlayerInteractions : MonoBehaviour
 {
     public GameObject gameManager;
     public GameObject ironOreCount;
     public GameObject quartzCount;
+    public GameObject iceCount;
     public Camera cam;
     public GameObject lights;
     public GameObject progressBar;
@@ -15,7 +21,7 @@ public class PlayerInteractions : MonoBehaviour
     public AudioSource mine;
     public ParticleSystem mineFX;
     public GameObject pickaxe;
-
+    public hotbarStates chosenTool;
     bool lightsOn;
     Ray ray;
     int oreInventory;
@@ -29,25 +35,39 @@ public class PlayerInteractions : MonoBehaviour
         //if (oreCount != null)
         //    oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: 0";
         //oreCount.text = "Ore: " + oreInventory;
+        chosenTool = hotbarStates.pickaxe;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { chosenTool = hotbarStates.pickaxe; Debug.Log("pick chosen"); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { chosenTool = hotbarStates.waterProbe; Debug.Log("probe chosen"); }
+
         if (Input.GetMouseButtonDown(0))
         {
             ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 5))
             {
-                if (hit.transform.CompareTag("Ore"))
+                if (chosenTool == hotbarStates.pickaxe)
                 {
-                    // Activate the progress bar
-                    progressBar.SetActive(true);
-                    progressBar.GetComponent<ProgressBar>().max = mineSpeed;
+                    if (hit.transform.CompareTag("Ore"))
+                    {
+                        // Activate the progress bar
+                        progressBar.SetActive(true);
+                        progressBar.GetComponent<ProgressBar>().max = mineSpeed;
 
-                    // Start the pickaxe animation
-                    pickaxe.GetComponent<PickaxeController>().isMining = true;
+                        // Start the pickaxe animation
+                        pickaxe.GetComponent<PickaxeController>().isMining = true;
+                    }
+                }
+                if (chosenTool == hotbarStates.waterProbe)
+                {
+                    if (hit.transform.CompareTag("Ore") && hit.transform.GetComponent<Ore>().oreType == "Ice")
+                    {
+                        gameManager.GetComponent<GameManager>().DoErrorMessage("Found water", 3f);
+                    }
                 }
             }
         }
@@ -61,37 +81,39 @@ public class PlayerInteractions : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            // Mine the ore
-            ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 5))
+            if (chosenTool == hotbarStates.pickaxe)
             {
-                if (hit.transform.CompareTag("Ore"))
+                // Mine the ore
+                ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 5))
                 {
-                    progressBar.GetComponent<ProgressBar>().current = timeMouseHeld;
-                    timeMouseHeld += Time.deltaTime;
+                    if (hit.transform.CompareTag("Ore"))
+                    {
+                        progressBar.GetComponent<ProgressBar>().current = timeMouseHeld;
+                        timeMouseHeld += Time.deltaTime;
+                    }
                 }
-            }
 
-            // If the ore is mined for x seconds
-            if (timeMouseHeld >= progressBar.GetComponent<ProgressBar>().max)
-            {
-                timeMouseHeld = 0f;
-                string oreType = hit.transform.GetComponent<Ore>().oreType;
-                gameManager.GetComponent<GameManager>().inventory[oreType]++;
-                mine.pitch = Random.Range(0.8f, 1.2f);
-                mineFX.transform.position = hit.point;
-                mineFX.Play();
-                mine.Play();
-                if (ironOreCount != null)
+                // If the ore is mined for x seconds
+                if (timeMouseHeld >= progressBar.GetComponent<ProgressBar>().max)
                 {
-                    ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + 
-                        gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
-                }
-                if (quartzCount != null)
-                {
-                    quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " +
-                        gameManager.GetComponent<GameManager>().inventory["Quartz"];
+                    timeMouseHeld = 0f;
+                    string oreType = hit.transform.GetComponent<Ore>().oreType;
+                    gameManager.GetComponent<GameManager>().inventory[oreType]++;
+                    mine.pitch = Random.Range(0.8f, 1.2f);
+                    mineFX.transform.position = hit.point;
+                    mineFX.Play();
+                    mine.Play();
+                    if (ironOreCount != null) {
+                        ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " +
+                            gameManager.GetComponent<GameManager>().inventory["Iron Ore"]; }
+                    if (quartzCount != null) {
+                        quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " +
+                            gameManager.GetComponent<GameManager>().inventory["Quartz"]; }
+                    if (iceCount != null) {
+                        iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " +
+                            gameManager.GetComponent<GameManager>().inventory["Ice"]; }
                 }
             }
         }

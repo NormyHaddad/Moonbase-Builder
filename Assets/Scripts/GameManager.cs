@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject quartzCount;
     public GameObject metalCount;
     public GameObject glassCount;
+    public GameObject iceCount;
     public GameObject errorMessage;
     public GameObject buildInfo;
     public Vector3 tooltipOffset;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         inventory.Add("Metal", 0);
         inventory.Add("Quartz", 0);
         inventory.Add("Glass", 0);
+        inventory.Add("Ice", 0);
 
         // Game screens
         gameUI.SetActive(true);
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
+        iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " + inventory["Ice"];
     }
 
     private void Update()
