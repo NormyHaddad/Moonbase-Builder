@@ -5,8 +5,8 @@ using TMPro;
 
 public enum hotbarStates
 {
-    pickaxe,
-    waterProbe
+    pickaxe = 0,
+    waterProbe = 1
 }
 public class PlayerInteractions : MonoBehaviour
 {
@@ -21,6 +21,7 @@ public class PlayerInteractions : MonoBehaviour
     public AudioSource mine;
     public ParticleSystem mineFX;
     public GameObject pickaxe;
+    public GameObject probe;
     public hotbarStates chosenTool;
     bool lightsOn;
     Ray ray;
@@ -30,19 +31,17 @@ public class PlayerInteractions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameManager.GetComponent<GameManager>().inventory["Ore"] = 0;
-        //gameManager.GetComponent<GameManager>().inventory["Metal"] = 0;
-        //if (oreCount != null)
-        //    oreCount.GetComponent<TextMeshProUGUI>().text = "Ore: 0";
-        //oreCount.text = "Ore: " + oreInventory;
         chosenTool = hotbarStates.pickaxe;
+        gameManager.GetComponent<GameUiManager>().UpdateHotbarIndicator("pickaxe");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { chosenTool = hotbarStates.pickaxe; Debug.Log("pick chosen"); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { chosenTool = hotbarStates.waterProbe; Debug.Log("probe chosen"); }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { chosenTool = hotbarStates.pickaxe;
+            gameManager.GetComponent<GameUiManager>().UpdateHotbarIndicator("pickaxe"); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { chosenTool = hotbarStates.waterProbe;
+            gameManager.GetComponent<GameUiManager>().UpdateHotbarIndicator("probe"); }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -64,6 +63,7 @@ public class PlayerInteractions : MonoBehaviour
                 }
                 if (chosenTool == hotbarStates.waterProbe)
                 {
+                    probe.GetComponent<ProbeAnimController>().PlayAnimation();
                     if (hit.transform.CompareTag("Ore") && hit.transform.GetComponent<Ore>().oreType == "Ice")
                     {
                         gameManager.GetComponent<GameManager>().DoErrorMessage("Found water", 3f);

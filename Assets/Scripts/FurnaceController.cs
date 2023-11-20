@@ -12,7 +12,14 @@ public class FurnaceController : MonoBehaviour
     public GameObject addon;
 
     public GameObject powerLight;
+    public GameObject radiator;
+    public GameObject shield;
+
     public Material on;
+    public Material radiatorGlow;
+    public Material radiatorNormal;
+    public Material shieldGlow;
+    public Material shieldNormal;
 
     public GameObject smeltLight;
 
@@ -80,6 +87,8 @@ public class FurnaceController : MonoBehaviour
     {
         while (furnaceInv >= 1)
         {
+            shield.GetComponent<MeshRenderer>().material = shieldGlow;
+            radiator.GetComponent<MeshRenderer>().material = radiatorGlow;
             yield return new WaitForSeconds(1f);
             Debug.Log(collectText.GetComponent<TextMeshPro>());
             furnaceInv -= 1;
@@ -89,6 +98,8 @@ public class FurnaceController : MonoBehaviour
         }
         StopCoroutine(SmeltOre());
         isSmelting = false;
+        shield.GetComponent<MeshRenderer>().material = shieldNormal;
+        radiator.GetComponent<MeshRenderer>().material = radiatorNormal;
         smeltLight.SetActive(false);
     }
 
