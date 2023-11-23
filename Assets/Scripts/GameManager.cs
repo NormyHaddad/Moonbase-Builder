@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject buildInfo;
     public Vector3 tooltipOffset;
 
+    public AudioSource thud;
+
     GameObject clone;
     public bool buildMode = false;
     public bool building = false;
@@ -126,6 +128,7 @@ public class GameManager : MonoBehaviour
                     {
                         clone.GetComponent<BuildableObj>().isBuilt = true;
                         building = false;
+                        thud.Play();
 
                         // Update the GUI
                         List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;

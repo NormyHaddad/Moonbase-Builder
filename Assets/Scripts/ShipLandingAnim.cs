@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
 public class ShipLandingAnim : MonoBehaviour
 {
@@ -15,10 +17,17 @@ public class ShipLandingAnim : MonoBehaviour
     public List<ParticleSystem> plumesToToggle;
     public List<GameObject> lightsToToggle;
 
+    public GameObject mainMenu;
+    public GameObject mainText;
+    public List<GameObject> buttonsToFade;
+
     float speed;
+    bool fadeStarted;
+
     // Start is called before the first frame update
     void Start()
     {
+        fadeStarted = false;
         speed = descentSpeed;
     }
 
@@ -43,13 +52,43 @@ public class ShipLandingAnim : MonoBehaviour
                 plume.Stop();
                 engineRumble.Stop();
             }
-            StartCoroutine(LoadScene());
+            if (!fadeStarted)
+            {
+                StartCoroutine(FadeInMenu());
+                fadeStarted = true;
+            }
         }
     }
 
-    IEnumerator LoadScene()
+    public void LoadScene()
     {
-        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Main");
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    IEnumerator FadeInMenu()
+    {
+        mainMenu.SetActive(true);
+
+        Color mainTextColor = mainText.GetComponent<TextMeshProUGUI>().color;
+        Color buttonColor = buttonsToFade[0].GetComponent<Button>().image.color;
+        Color buttonTextColor = buttonsToFade[0].GetComponentInChildren<TextMeshProUGUI>().color;
+
+        yield return new WaitForSeconds(1.5f);
+        for (float i = 0; i <= 1; i += Time.deltaTime / 2)
+        {
+            // set color with i as alpha
+            mainText.GetComponent<TextMeshProUGUI>().color = new Color(mainTextColor.r, mainTextColor.g, mainTextColor.b, i);
+
+            foreach (GameObject button in buttonsToFade)
+            {
+                button.GetComponent<Button>().image.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, i);
+                button.GetComponentInChildren<TextMeshProUGUI>().color = new Color(buttonTextColor.r, buttonTextColor.g, buttonTextColor.b, i);
+                yield return null;
+            }
+        }
     }
 }

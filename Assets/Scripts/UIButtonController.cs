@@ -7,30 +7,23 @@ public class UIButtonController : MonoBehaviour, IPointerEnterHandler, IPointerE
 {
     public GameObject gameManager;
     public GameObject buildableObj;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public AudioSource hover;
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        string name = buildableObj.GetComponent<BuildableObj>().name;
-        List<string> materials = buildableObj.GetComponent<BuildableObj>().materials;
-        foreach (string i in materials)
-            Debug.Log(i);
-        List<int> amount = buildableObj.GetComponent<BuildableObj>().amount;
-        gameManager.GetComponent<GameManager>().ShowBuildTooltip(name, materials, amount);
+        hover.Play();
+        if (buildableObj != null)
+        {
+            string name = buildableObj.GetComponent<BuildableObj>().name;
+            List<string> materials = buildableObj.GetComponent<BuildableObj>().materials;
+            List<int> amount = buildableObj.GetComponent<BuildableObj>().amount;
+            gameManager.GetComponent<GameManager>().ShowBuildTooltip(name, materials, amount);
+        }
     }
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        gameManager.GetComponent<GameManager>().HideBuildTooltip();
+        if (gameManager != null)
+            gameManager.GetComponent<GameManager>().HideBuildTooltip();
     }
 }
