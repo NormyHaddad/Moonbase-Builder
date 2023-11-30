@@ -543,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   addon: {fileID: 0}
+  connectorWalls: []
   lightBulb: {fileID: 6298615335952310382}
   light: {fileID: 2404225919282083816}
   on: {fileID: 2100000, guid: 705e4f9e24185c547baf2f315e5e8333, type: 2}

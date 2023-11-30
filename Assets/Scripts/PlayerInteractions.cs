@@ -19,6 +19,7 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject progressBar;
     public int mineSpeed;
     public AudioSource mine;
+    public AudioSource lightToggle;
     public ParticleSystem mineFX;
     public GameObject pickaxe;
     public GameObject probe;
@@ -128,6 +129,7 @@ public class PlayerInteractions : MonoBehaviour
             {
                 lights.SetActive(false);
             }
+            lightToggle.Play();
         }
     }
 }

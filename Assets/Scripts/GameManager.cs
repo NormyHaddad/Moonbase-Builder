@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // New inventory system
-        inventory.Add("Iron Ore", 0);
+        inventory.Add("Iron Ore", 100);
         inventory.Add("Metal", 0);
         inventory.Add("Quartz", 0);
         inventory.Add("Glass", 0);
@@ -129,6 +129,12 @@ public class GameManager : MonoBehaviour
                         clone.GetComponent<BuildableObj>().isBuilt = true;
                         building = false;
                         thud.Play();
+
+                        // if the building is a hab
+                        if (clone.GetComponent<HabController>() != null)
+                        {
+                            clone.GetComponent<HabController>().CheckConnections();
+                        }
 
                         // Update the GUI
                         List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
