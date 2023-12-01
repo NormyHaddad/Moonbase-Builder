@@ -5,8 +5,11 @@
  - Look around: Mouse  
  - RCS Jetpack up/down: Q/E  
  - Enter build mode: B  
- - Mine Ore: Right click  
-  
+ - Exit build mode: Esc
+ - Mine Ore: Right click and hold
+ - Turn on lights: L
+ - Open airlock: F (when close)
+
 #### Build mode camera controls:  
  - Movement: WASD  
  - Rotate: Q/E  

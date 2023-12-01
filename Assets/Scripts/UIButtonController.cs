@@ -12,6 +12,7 @@ public class UIButtonController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
+        gameManager.GetComponent<GameManager>().mouseOverButton = true;
         hover.Play();
         if (buildableObj != null)
         {
@@ -24,6 +25,6 @@ public class UIButtonController : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (gameManager != null)
-            gameManager.GetComponent<GameManager>().HideBuildTooltip();
+        { gameManager.GetComponent<GameManager>().HideBuildTooltip(); gameManager.GetComponent<GameManager>().mouseOverButton = false; }
     }
 }

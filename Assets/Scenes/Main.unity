@@ -14134,7 +14134,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c21da8a77db2cbe409fae350798e1f59, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 2
   Loop: 0
@@ -14648,6 +14648,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: hab large hollow
       objectReference: {fileID: 0}
+    - target: {fileID: 1634737505151930688, guid: a7b01f299f4c7464d9c38d866cb7c627,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b67ced68bd7a2248b847980be8e5ac4, type: 2}
     - target: {fileID: 2292292869886377946, guid: a7b01f299f4c7464d9c38d866cb7c627,
         type: 3}
       propertyPath: m_RootOrder

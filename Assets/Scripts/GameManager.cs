@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool buildMode = false;
     public bool building = false;
 
+    public bool mouseOverButton = false;
+
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
 
     bool errorIsActive = false;
@@ -36,8 +38,8 @@ public class GameManager : MonoBehaviour
     {
         // New inventory system
         inventory.Add("Iron Ore", 100);
-        inventory.Add("Metal", 0);
-        inventory.Add("Quartz", 0);
+        inventory.Add("Metal", 100);
+        inventory.Add("Quartz", 100);
         inventory.Add("Glass", 0);
         inventory.Add("Ice", 0);
 
@@ -123,9 +125,9 @@ public class GameManager : MonoBehaviour
                         DoErrorMessage("Object cannot be placed inside other buildings");
                     }
 
-                    // If the building is NOT clipping into other buildings
-                    if (!clone.GetComponent<BuildableObj>().isColliding)
-                    {
+                    // If the building is NOT clipping into other buildings, and if the click isn't the player choosing a new object
+                    if (!clone.GetComponent<BuildableObj>().isColliding && !mouseOverButton)
+                    { // Now the building is successfully placed
                         clone.GetComponent<BuildableObj>().isBuilt = true;
                         building = false;
                         thud.Play();
@@ -285,6 +287,8 @@ public class GameManager : MonoBehaviour
 
         if (enoughMaterials == true) // If you have enough to build it
         {
+            if (clone != null && !clone.GetComponent<BuildableObj>().isBuilt)
+            { Destroy(clone); }
             // Initially spawn it here so it doesn't spawn a new one every frame
             ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
