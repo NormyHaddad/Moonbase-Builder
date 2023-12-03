@@ -39,24 +39,19 @@ public class HabController : MonoBehaviour
         // Use raycasting to find and disable any doors that are blocking connected tunnels
         foreach (GameObject wall in connectorWalls)
         {
-            //Debug.Log("Step 1");
             Ray ray = new Ray(wall.transform.position, wall.transform.forward);
             Debug.DrawRay(wall.transform.position, wall.transform.forward * 0.25f, Color.green, 1000f);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 0.5f)) // if it hits another object
             {
-                Debug.Log(hit.transform.name);
                 if (hit.transform.GetComponent<HabController>() != null) // if the other object is a hab
                 {
                     // look through all that hab's own walls
                     foreach (GameObject wall2 in hit.transform.GetComponent<HabController>().connectorWalls)
                     {
                         // find one with a distance short enough
-                        Debug.Log(Vector3.Distance(wall.transform.position, wall2.transform.position) <= distanceThreshold);
                         if (Vector3.Distance(wall.transform.position, wall2.transform.position) <= distanceThreshold)
                         {
-                            Debug.Log(wall.transform.name + ", " + wall2.transform.name);
-                            Debug.Log(Vector3.Distance(wall.transform.position, wall2.transform.position));
                             // disable both walls
                             wall.SetActive(false);
                             wall2.SetActive(false);

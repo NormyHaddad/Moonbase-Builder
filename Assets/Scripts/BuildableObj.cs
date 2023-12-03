@@ -8,6 +8,8 @@ public class BuildableObj : MonoBehaviour
 
     public GameObject addon;
 
+    public GameObject gameManager;
+
     public string addonType;
 
     public int buildCost;

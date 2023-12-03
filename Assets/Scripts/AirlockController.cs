@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AirlockController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    GameObject gameManager;
+
     public GameObject door1;
     public GameObject door2;
 
@@ -12,7 +13,7 @@ public class AirlockController : MonoBehaviour
 
     void Start()
     {
-        
+        gameManager = GetComponent<HabController>().gameManager;
     }
 
     // Update is called once per frame
@@ -32,6 +33,7 @@ public class AirlockController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Toggle airlock");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -39,6 +41,7 @@ public class AirlockController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            gameManager.GetComponent<GameUiManager>().HideInteractTooltip();
         }
     }
 

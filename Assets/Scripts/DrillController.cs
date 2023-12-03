@@ -5,7 +5,7 @@ using TMPro;
 
 public class DrillController : MonoBehaviour
 {
-    public GameObject text;
+    public string collectMessage;
     public GameObject gameManager;
     public LayerMask oreLayer;
     public int storageLimit;
@@ -24,11 +24,12 @@ public class DrillController : MonoBehaviour
 
     void Start()
     {
+        gameManager = GetComponent<BuildableObj>().gameManager;
         playerInRange = false;  
         oreStorage = 0;
         canMine = false;
         isMining = false;
-        text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " ore"; // Why not?
+        collectMessage = "Press C to collect " + oreStorage + " ore";
     }
 
     // Update is called once per frame
@@ -43,6 +44,7 @@ public class DrillController : MonoBehaviour
             isPowered = true;
         }
 
+        // Check if drill is above ore
         Ray newRay = new Ray(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1, 0));
         Debug.DrawRay(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1.5f, 0), Color.magenta, 1f);
         RaycastHit hit;
@@ -70,18 +72,15 @@ public class DrillController : MonoBehaviour
         {
             gameManager.GetComponent<GameManager>().inventory[oreType] += oreStorage;
             if (oreType == "Iron Ore")
-            {
-                gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
-                    "Iron Ore: " + gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
-            }            
+            { gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
+                    "Iron Ore: " + gameManager.GetComponent<GameManager>().inventory["Iron Ore"]; }            
             if (oreType == "Quartz")
-            {
-                gameManager.GetComponent<GameManager>().quartzCount.GetComponent<TextMeshProUGUI>().text =
-                    "Quartz: " + gameManager.GetComponent<GameManager>().inventory["Quartz"];
-            }
+            { gameManager.GetComponent<GameManager>().quartzCount.GetComponent<TextMeshProUGUI>().text =
+                    "Quartz: " + gameManager.GetComponent<GameManager>().inventory["Quartz"]; }
 
             oreStorage = 0;
-            text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " " + oreType;
+            collectMessage = "Press C to collect " + oreStorage + " " + oreType;
+            gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("C", collectMessage);
         }
     }
 
@@ -91,7 +90,9 @@ public class DrillController : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             oreStorage += 1;
-            text.GetComponent<TextMeshPro>().text = "Press C to collect " + oreStorage + " " + oreType;
+            collectMessage = "Press C to collect " + oreStorage + " " + oreType;
+            // Dont show the tooltip if the player isn't in range
+            if (playerInRange) { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("C", collectMessage); }
         }
     }
 
@@ -99,21 +100,18 @@ public class DrillController : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            text.SetActive(true);
+            gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("C", collectMessage);
             playerInRange = true;
-            //player = collision.gameObject;
             if (gameManager == null)
-            {   
-                gameManager = collision.gameObject.GetComponent<PlayerInteractions>().gameManager;
-            }
+            { gameManager = collision.gameObject.GetComponent<PlayerInteractions>().gameManager; }
         }
     }
     private void OnTriggerExit(Collider collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
-            text.SetActive(false);
             playerInRange = false;
+            gameManager.GetComponent<GameUiManager>().HideInteractTooltip();
             //player = null;
         }
     }

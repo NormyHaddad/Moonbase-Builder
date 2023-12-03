@@ -127,7 +127,8 @@ public class GameManager : MonoBehaviour
 
                     // If the building is NOT clipping into other buildings, and if the click isn't the player choosing a new object
                     if (!clone.GetComponent<BuildableObj>().isColliding && !mouseOverButton)
-                    { // Now the building is successfully placed
+                    { 
+                        // Now the building is successfully placed
                         clone.GetComponent<BuildableObj>().isBuilt = true;
                         building = false;
                         thud.Play();
@@ -298,6 +299,7 @@ public class GameManager : MonoBehaviour
             }
             buildMode = true;
             clone = Instantiate(objToBuild, pos, Quaternion.identity);
+            clone.GetComponent<BuildableObj>().gameManager = gameObject;
             building = true;
         }
     }
