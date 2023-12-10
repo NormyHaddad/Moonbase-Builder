@@ -12,7 +12,9 @@ public class UIButtonController : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        gameManager.GetComponent<GameManager>().mouseOverButton = true;
+        if (gameManager != null)
+            gameManager.GetComponent<GameManager>().mouseOverButton = true;
+    
         hover.Play();
         if (buildableObj != null)
         {

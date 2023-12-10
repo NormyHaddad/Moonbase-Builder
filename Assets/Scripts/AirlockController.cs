@@ -6,6 +6,8 @@ public class AirlockController : MonoBehaviour
 {
     GameObject gameManager;
 
+    public AudioSource airlockHiss;
+
     public GameObject door1;
     public GameObject door2;
 
@@ -47,6 +49,9 @@ public class AirlockController : MonoBehaviour
 
     public void SwitchDoors()
     {
+        if (!airlockHiss.isPlaying)
+        { airlockHiss.Play(); }
+
         if (door1.activeSelf == true)
         { door1.SetActive(false); }
         else { door1.SetActive(true); }

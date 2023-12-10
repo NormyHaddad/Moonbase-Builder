@@ -19,7 +19,8 @@
  - Rumble · loop 10s (https://freesound.org/people/unfa/sounds/258339/). Creative Commons  
  - Hissing (https://freesound.org/people/TheScarlettWitch89/sounds/415287/)  
  - Button highlight (https://freesound.org/people/TheWilliamSounds/sounds/686557/)    
- - Blueprint place (https://freesound.org/people/OtisJames/sounds/215162/)    
+ - Blueprint place (https://freesound.org/people/OtisJames/sounds/215162/)   
+ - Airlock Hiss (https://freesound.org/people/typeoo/sounds/521506/) 
 
 #### Music:
  - Title screen (Stellardrone - Ascent). Licensed under Creative Commons. https://creativecommons.org/licenses/by/4.0/#
