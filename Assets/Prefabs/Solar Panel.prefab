@@ -48,7 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   addonPos: {fileID: 0}
   addon: {fileID: 0}
+  gameManager: {fileID: 0}
   addonType: PowerGen
+  objName: Solar Panel
   buildCost: 0
   isBuilt: 0
   isAddon: 1

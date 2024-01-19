@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public GameObject buildInfo;
     public Vector3 tooltipOffset;
 
+    public List<GameObject> builtObjs;
+    public GameObject worldSaver;
+
     public AudioSource thud;
 
     GameObject clone;
@@ -82,6 +85,14 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             ExitBuildMode();
 
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            { SaveGame(); }
+            else if (Input.GetKeyDown(KeyCode.L))
+            { Debug.Log("Loading Data"); worldSaver.GetComponent<SaveGame>().LoadGame(); }
+        }
+
         if (building && buildMode)
         {
             LayerMask mask = LayerMask.GetMask("Ground");
@@ -116,14 +127,12 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0)) // Place obj
             {
-                // If the object is NOT an addon
+                // If the object is NOT an addon, ie, a standalone object
                 if (!clone.GetComponent<BuildableObj>().isAddon)
                 {
                     // If the building IS clipping into other buildings
                     if (clone.GetComponent<BuildableObj>().isColliding)
-                    {
-                        DoErrorMessage("Object cannot be placed inside other buildings");
-                    }
+                    { DoErrorMessage("Object cannot be placed inside other buildings"); }
 
                     // If the building is NOT clipping into other buildings, and if the click isn't the player choosing a new object
                     if (!clone.GetComponent<BuildableObj>().isColliding && !mouseOverButton)
@@ -132,10 +141,13 @@ public class GameManager : MonoBehaviour
                         clone.GetComponent<BuildableObj>().isBuilt = true;
                         building = false;
                         thud.Play();
+                        builtObjs.Add(clone);
+                        //worldSaver.GetComponent<SaveGame>().AddObjToList(clone);
 
                         // if the building is a hab
                         if (clone.GetComponent<HabController>() != null)
                         {
+                            clone.GetComponent<HabController>().gameManager = gameObject;
                             clone.GetComponent<HabController>().CheckConnections();
                         }
 
@@ -226,6 +238,29 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        
+    }
+
+    public void SaveGame()
+    {
+        Debug.Log(builtObjs);
+        if (builtObjs != null) { // I hate null checking
+            foreach (GameObject obj in builtObjs)
+            {
+                Debug.Log(obj);
+                if (worldSaver.GetComponent<SaveGame>() != null && obj != null)
+                    worldSaver.GetComponent<SaveGame>().AddObjToList(obj);
+                Debug.Log("Added world objects to list");
+                
+            }
+        }
+        Debug.Log("Attempting to save");
+        worldSaver.GetComponent<SaveGame>().SaveGameState();
+        Debug.Log("Saving complete");
     }
 
     public void DoErrorMessage(string message, float timeToDecay = 5f)

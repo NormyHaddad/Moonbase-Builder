@@ -12,6 +12,7 @@ public class BuildableObj : MonoBehaviour
 
     public string addonType;
 
+    public string objName;
     public int buildCost;
     public bool isBuilt = false;
     public bool isAddon = false;

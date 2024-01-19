@@ -5,11 +5,11 @@ using TMPro;
 
 public class FurnaceController : MonoBehaviour
 {
-    public GameObject interactText;
-    public GameObject collectText;
     public GameObject player;
     public GameObject gameManager;
     public GameObject addon;
+
+    public string collectMsg;
 
     public GameObject powerLight;
     public GameObject radiator;
@@ -57,8 +57,8 @@ public class FurnaceController : MonoBehaviour
                 gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough iron ore", 4f);
         }
 
-        if (collectText.GetComponent<TextMeshProUGUI>() != null)
-            collectText.GetComponent<TextMeshProUGUI>().text = "'C' Collect " + furnaceOut.ToString() + " metal";
+        collectMsg = "Collect " + furnaceOut.ToString() + " metal";
+        
 
         // Press C to collect smelted ore
         if (Input.GetKeyDown(KeyCode.C) && playerInRange && gameManager.GetComponent<GameManager>().buildMode == false)
@@ -67,8 +67,8 @@ public class FurnaceController : MonoBehaviour
             gameManager.GetComponent<GameManager>().metalCount.GetComponent<TextMeshProUGUI>().text =
                 "Metal: " + gameManager.GetComponent<GameManager>().inventory["Metal"];
             furnaceOut = 0;
-            if (collectText.GetComponent<TextMeshPro>() != null)
-                collectText.GetComponent<TextMeshPro>().text = "'C' Collect " + furnaceOut.ToString() + " metal";
+            gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Smelt Ore");
+            collectMsg = "Collect " + furnaceOut.ToString() + " metal";
         }
 
         // Only wanna start the coroutine once, and only when there's ore in it, and only when its powered
@@ -90,11 +90,15 @@ public class FurnaceController : MonoBehaviour
             shield.GetComponent<MeshRenderer>().material = shieldGlow;
             radiator.GetComponent<MeshRenderer>().material = radiatorGlow;
             yield return new WaitForSeconds(1f);
-            Debug.Log(collectText.GetComponent<TextMeshPro>());
             furnaceInv -= 1;
             furnaceOut += 1;
-            if (collectText.GetComponent<TextMeshPro>() != null)
-                collectText.GetComponent<TextMeshPro>().text = "'C' Collect " + furnaceOut.ToString() + " metal";
+            collectMsg = "Collect " + furnaceOut.ToString() + " metal";
+
+            if (playerInRange)
+            {
+                if (furnaceOut <= 0) { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Smelt Ore"); }
+                else { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F/C", "Smelt Ore/Collect " + furnaceOut + " ore"); }
+            }
         }
         StopCoroutine(SmeltOre());
         isSmelting = false;
@@ -107,8 +111,8 @@ public class FurnaceController : MonoBehaviour
     {
         if(collision.transform.CompareTag("Player"))
         {
-            interactText.SetActive(true);
-            collectText.SetActive(true);
+            if (furnaceOut <= 0) { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Smelt Ore"); }
+            else { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F/C", "Smelt Ore/" + collectMsg); }
             playerInRange = true;
         }
     }
@@ -116,8 +120,7 @@ public class FurnaceController : MonoBehaviour
     {
         if(collision.transform.CompareTag("Player"))
         {
-            interactText.SetActive(false);
-            collectText.SetActive(false);
+            gameManager.GetComponent<GameUiManager>().HideInteractTooltip();
             playerInRange = false;
             player = collision.gameObject;
         }
