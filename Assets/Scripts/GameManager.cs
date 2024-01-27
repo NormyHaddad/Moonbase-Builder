@@ -7,7 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public Camera cam;
     public float gravity;
-    public GameObject hab;
+    public GameObject player;
+    //public GameObject hab;
+
+    // UI
     public GameObject buildScreen;
     public GameObject gameUI;
     public GameObject ironOreCount;
@@ -19,11 +22,13 @@ public class GameManager : MonoBehaviour
     public GameObject buildInfo;
     public Vector3 tooltipOffset;
 
+    // Saving
     public List<GameObject> builtObjs;
     public GameObject worldSaver;
 
     public AudioSource thud;
 
+    // Build mode
     GameObject clone;
     public bool buildMode = false;
     public bool building = false;
@@ -151,6 +156,12 @@ public class GameManager : MonoBehaviour
                             clone.GetComponent<HabController>().CheckConnections();
                         }
 
+                        // if the building has an airlock
+                        if (clone.GetComponent<AirlockController>() != null)
+                        {
+                            clone.GetComponent<AirlockController>().gameManager = gameObject;
+                        }
+
                         // Update the GUI
                         List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
                         List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
@@ -247,8 +258,8 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
-        Debug.Log(builtObjs);
-        if (builtObjs != null) { // I hate null checking
+        if (builtObjs != null)
+        {
             foreach (GameObject obj in builtObjs)
             {
                 Debug.Log(obj);
@@ -259,7 +270,7 @@ public class GameManager : MonoBehaviour
             }
         }
         Debug.Log("Attempting to save");
-        worldSaver.GetComponent<SaveGame>().SaveGameState();
+        worldSaver.GetComponent<SaveGame>().SaveGameState(player.transform.position, inventory);
         Debug.Log("Saving complete");
     }
 

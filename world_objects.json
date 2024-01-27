@@ -1,32 +1,30 @@
-[
-  {
-    "obj": "Large Habitat",
-    "addon": "Solar Panel",
-    "pos": {
-      "x": -4.0,
-      "y": 0.0,
-      "z": 30.0
+{
+  "playerData": {
+    "position": {
+      "x": -3.12920747E-08,
+      "y": 0.00189942122,
+      "z": 0.0
     },
-    "rot": 0.0
+    "inventory": {
+      "Iron Ore": 75,
+      "Metal": 90,
+      "Quartz": 100,
+      "Glass": 0,
+      "Ice": 0
+    }
   },
-  {
-    "obj": "Habitat",
-    "addon": "Solar Panel",
-    "pos": {
-      "x": -4.0,
-      "y": 0.0,
-      "z": 18.0
-    },
-    "rot": 0.0
-  },
-  {
-    "obj": "Lookout",
-    "addon": "Solar Panel",
-    "pos": {
-      "x": 7.0,
-      "y": 0.0,
-      "z": 30.0
-    },
-    "rot": 0.0
+  "worldObjects": {
+    "list": [
+      {
+        "obj": "Large Habitat",
+        "addon": "none",
+        "pos": {
+          "x": -0.5,
+          "y": 0.0,
+          "z": 26.0
+        },
+        "rot": 0.0
+      }
+    ]
   }
-]
+}

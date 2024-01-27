@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AirlockController : MonoBehaviour
 {
-    GameObject gameManager;
+    public GameObject gameManager;
 
     public AudioSource airlockHiss;
 
