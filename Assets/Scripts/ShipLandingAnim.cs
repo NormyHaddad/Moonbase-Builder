@@ -29,6 +29,8 @@ public class ShipLandingAnim : MonoBehaviour
     {
         fadeStarted = false;
         speed = descentSpeed;
+
+        PlayerPrefs.SetString("Loaded", "no");
     }
 
     // Update is called once per frame
@@ -60,8 +62,13 @@ public class ShipLandingAnim : MonoBehaviour
         }
     }
 
-    public void LoadScene()
+    public void LoadScene(string loadData)
     {
+        if (loadData == "yes")
+        { PlayerPrefs.SetString("Load Data", "yes"); }
+        else
+        { PlayerPrefs.SetString("Load Data", "no"); }
+
         SceneManager.LoadScene("Main");
     }
     public void Quit()

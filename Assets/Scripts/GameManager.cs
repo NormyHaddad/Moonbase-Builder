@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public Camera cam;
     public float gravity;
     public GameObject player;
-    //public GameObject hab;
 
     // UI
     public GameObject buildScreen;
@@ -169,29 +168,19 @@ public class GameManager : MonoBehaviour
                         foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
                         {
                             if (item == "Iron Ore")
-                            {
-                                inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")];
-                                ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
-                            }
+                            { inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")]; }
 
                             if (item == "Glass")
-                            {
-                                inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
-                                glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
-                            }
+                            { inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")]; }
 
                             if (item == "Metal")
-                            {
-                                inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
-                                metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
-                            }
+                            { inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")]; }
 
                             if (item == "Quartz")
-                            {
-                                inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
-                                quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
-                            }
+                            { inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")]; }
                         }
+
+                        UpdateGUI();
 
                         if (ironOreCount != null)
                             ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
@@ -253,7 +242,10 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        
+        Debug.Log("Quit game");
+        SaveGame();
+        PlayerPrefs.SetString("Loaded", "no");
+        PlayerPrefs.SetString("Load Data", "no");
     }
 
     public void SaveGame()
@@ -272,6 +264,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Attempting to save");
         worldSaver.GetComponent<SaveGame>().SaveGameState(player.transform.position, inventory);
         Debug.Log("Saving complete");
+    }
+
+    public void UpdateGUI()
+    {
+        ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+        glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
+        metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+        quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
     }
 
     public void DoErrorMessage(string message, float timeToDecay = 5f)

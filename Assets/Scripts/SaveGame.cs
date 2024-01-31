@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class SaveGame : MonoBehaviour
 {
+    // Classes
+    [System.Serializable]
+    public class ObjectIndex
+    {
+        public string Name;
+        public GameObject Object;
+    }
+
+    public List<ObjectIndex> objs;
+
     [System.Serializable]
     public class WorldObjProperties
     {
@@ -59,6 +70,9 @@ public class SaveGame : MonoBehaviour
         }
     }
 
+    // Variables
+    public GameObject gameManager;
+
     public List<WorldObjProperties> loadedObjects;
     public WorldObjects worldObjects;
 
@@ -66,6 +80,24 @@ public class SaveGame : MonoBehaviour
     {
         worldObjects = new WorldObjects();
         worldObjects.list = new List<WorldObjProperties>();
+
+        if(PlayerPrefs.GetString("Load Data") == "yes")
+        {
+            LoadGame();
+        }
+    }
+
+    public GameObject FindObj(string name)
+    {
+        foreach (ObjectIndex i in objs)
+        {
+            if (name == i.Name)
+            {
+                return i.Object;
+            }
+        }
+        Debug.Log("No match found");
+        return null;
     }
 
     public void AddObjToList(GameObject obj)
@@ -111,7 +143,7 @@ public class SaveGame : MonoBehaviour
         SaveDataToFile(data, "world_objects.json");
     }
 
-    List<WorldObjProperties> LoadDataFromFile(string filePath)
+    SaveData LoadDataFromFile(string filePath)
     {
         Debug.Log($"Checking file existence: {filePath}");
         if (File.Exists(filePath))
@@ -119,15 +151,14 @@ public class SaveGame : MonoBehaviour
             Debug.Log("File found");
             try
             {
-                //using (FileStream stream = new FileStream(filePath, FileMode.Open))
-                //{
-                //    BinaryFormatter formatter = new BinaryFormatter();
-                //    List<WorldObjProperties> loadedList = (List<WorldObjProperties>)formatter.Deserialize(stream);
-                //    return loadedList;
-                //}
-                string jsonData = File.ReadAllText(filePath);
-                List<WorldObjProperties> loadedList = JsonUtility.FromJson<List<WorldObjProperties>>(jsonData);
-                return loadedList;
+                JObject jsonData;
+                using (StreamReader file = File.OpenText("world_objects.json"))
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    jsonData = (JObject)JToken.ReadFrom(reader);
+                }
+                SaveData saveData = jsonData.ToObject<SaveData>();
+                return saveData;
             }
             catch (System.Exception e)
             {
@@ -136,42 +167,59 @@ public class SaveGame : MonoBehaviour
             }
         }
         else
-        {
-            Debug.Log($"File not found: {filePath}");
-            return null;
-        }
+        { Debug.Log($"File not found: {filePath}"); return null; }
     }
 
     public void LoadGame()
     {
         Debug.Log("LoadGame() called");
-
-        List<WorldObjProperties> loadedList = LoadDataFromFile("world_objects.json");
-
-        // Check if the loaded list is not null and print the data
-        if (loadedList != null)
+        if (PlayerPrefs.GetString("Loaded") != "yes")
         {
-            Debug.Log($"Loaded List Count: {loadedList.Count}");
+            PlayerPrefs.SetString("Loaded", "yes");
+            SaveData loadedData = LoadDataFromFile("world_objects.json");
 
-            foreach (WorldObjProperties i in loadedList)
+            // Check if the loaded data is not null load it into the scene
+            if (loadedData != null)
             {
-                Debug.Log($"Object: {i.obj}, Position: {i.pos}, Position: {i.pos}");
+                foreach (WorldObjProperties i in loadedData.worldObjects.list)
+                {
+                    GameObject clone = Instantiate(FindObj(i.obj), new Vector3(i.pos.x, i.pos.y, i.pos.z), Quaternion.identity);
+                    clone.transform.Rotate(0f, i.rot, 0f);
+                    if (clone.GetComponent<HabController>() != null)
+                    {
+                        clone.GetComponent<HabController>().gameManager = gameManager;
+                        clone.GetComponent<HabController>().CheckConnections();
+                    }
+
+                    // if the building has an airlock
+                    if (clone.GetComponent<AirlockController>() != null)
+                    { clone.GetComponent<AirlockController>().gameManager = gameManager; }
+
+                    if (i.addon != "none")
+                    {
+                        GameObject addon = Instantiate(FindObj(i.addon), clone.GetComponent<BuildableObj>().addonPos.position, Quaternion.identity);
+                        addon.transform.SetParent(clone.transform);
+                        clone.GetComponent<BuildableObj>().addon = addon;
+                    }
+                    AddObjToList(clone);
+                }
+                gameManager.GetComponent<GameManager>().inventory = loadedData.playerData.inventory;
+                JsonVector pos = loadedData.playerData.position;
+                gameManager.GetComponent<GameManager>().player.transform.position = new Vector3(pos.x, pos.y, pos.z);
+                gameManager.GetComponent<GameManager>().UpdateGUI();
+            }
+            else
+            {
+                Debug.Log("Failed to load data from file.");
             }
         }
-        else
-        {
-            Debug.Log("Failed to load data from file.");
-        }
+        else { Debug.Log("Data previously loaded"); }
     }
 
     void SaveDataToFile(SaveData data, string filePath)
     {
         if (data != null)
         {
-            //foreach (WorldObjProperties i in data)
-            //{
-            //    Debug.Log($"Object: {i.obj}, Position: {i.pos}, Position: {i.pos} saved");
-            //}
             string jsonData = JsonConvert.SerializeObject(data);
             File.WriteAllText(filePath, jsonData);
             Debug.Log(jsonData);
