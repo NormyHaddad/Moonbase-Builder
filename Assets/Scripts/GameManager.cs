@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     // UI
     public GameObject buildScreen;
+    public GameObject pauseScreen;
     public GameObject gameUI;
     public GameObject ironOreCount;
     public GameObject quartzCount;
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
     GameObject clone;
     public bool buildMode = false;
     public bool building = false;
+
+    public bool isPaused = false;
 
     public bool mouseOverButton = false;
 
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
         // Game screens
         gameUI.SetActive(true);
         buildScreen.SetActive(false);
+        pauseScreen.SetActive(false);
 
         // Inventory stuff
         //inventory["Ore"] = 0;
@@ -83,11 +88,21 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        // Key Inputs
+        if (Input.GetKeyDown(KeyCode.B) && !isPaused)
             EnterBuildMode();
 
         if (Input.GetKeyDown(KeyCode.Escape))
-            ExitBuildMode();
+        {
+            if (buildMode)
+                ExitBuildMode();
+
+            else if (!buildMode && !isPaused)
+                PauseGame();
+
+            else if (isPaused)
+                UnpauseGame();
+        }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -248,6 +263,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("Load Data", "no");
     }
 
+    public void LoadScene(string sceneName)
+    { SceneManager.LoadScene(sceneName); }
+
+    public void QuitGame()
+    { Application.Quit(); }
+
     public void SaveGame()
     {
         if (builtObjs != null)
@@ -300,6 +321,22 @@ public class GameManager : MonoBehaviour
         buildScreen.SetActive(false);
         if (clone != null && clone.GetComponent<BuildableObj>().isBuilt == false)
             Destroy(clone);
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        pauseScreen.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+    }
+    
+    public void UnpauseGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        pauseScreen.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void ShowBuildTooltip(string name, List<string> materials, List<int> amount)

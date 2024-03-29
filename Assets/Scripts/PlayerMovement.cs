@@ -10,12 +10,15 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     public AudioSource rcsHiss;
 
+    public LayerMask playerLayer;
+
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
     Rigidbody rb;
 
     bool isJumping;
+    bool canJump;
 
     public GameObject gameManager;
     float gravity;
@@ -23,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         isJumping = false;
+        canJump = true;
         gravity = gameManager.GetComponent<GameManager>().gravity;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -37,10 +41,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MyInput();
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && canJump)
         {
             rb.AddForce(Vector3.up * jumpStrength);
             isJumping = true;
+            StartCoroutine(JumpCooldown());
         }
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
@@ -57,12 +62,33 @@ public class PlayerMovement : MonoBehaviour
                 rcsHiss.Stop();
             }
         }
+
+        // Check if the player is standing on something
+        Ray ray = new Ray(transform.position + new Vector3(0f, 0.2f, 0f), Vector3.down);
+        Debug.DrawRay(transform.position + new Vector3(0f, 0.2f, 0f), Vector3.down * 0.2f, Color.magenta, 0.1f);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 0.2f, ~playerLayer)) // Make sure the raycast never hits the player itself
+        {
+            isJumping = false;
+        }
+        else
+        {
+            isJumping = true;
+        }
     }
 
     private void MyInput()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+    }
+
+    IEnumerator JumpCooldown()
+    {
+        canJump = false;
+        isJumping = true;
+        yield return new WaitForSeconds(0.5f);
+        canJump = true;
     }
 
     private void MovePlayer()
