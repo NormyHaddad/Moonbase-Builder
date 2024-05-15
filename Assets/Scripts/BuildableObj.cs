@@ -12,10 +12,13 @@ public class BuildableObj : MonoBehaviour
 
     public string addonType;
 
+    public string objType;
     public string objName;
     public int buildCost;
     public bool isBuilt = false;
     public bool isAddon = false;
+
+    public int storage;
 
     public bool isColliding;
 
@@ -27,6 +30,7 @@ public class BuildableObj : MonoBehaviour
         if (other.transform.CompareTag("Building"))
         {
             isColliding = true;
+            Debug.Log("col");
         }
     }
 
@@ -35,6 +39,7 @@ public class BuildableObj : MonoBehaviour
         if (other.transform.CompareTag("Building"))
         {
             isColliding = false;
+            Debug.Log("no col");
         }
     }
 }

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject metalCount;
     public GameObject glassCount;
     public GameObject iceCount;
+    public GameObject fuelCount;
     public GameObject errorMessage;
     public GameObject buildInfo;
     public Vector3 tooltipOffset;
@@ -27,18 +28,20 @@ public class GameManager : MonoBehaviour
     public List<GameObject> builtObjs;
     public GameObject worldSaver;
 
-    public AudioSource thud;
-
     // Build mode
     GameObject clone;
     public bool buildMode = false;
     public bool building = false;
 
+    // Gameplay
+    public int fuelStorage;
     public bool isPaused = false;
 
     public bool mouseOverButton = false;
 
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
+
+    public AudioSource thud;
 
     bool errorIsActive = false;
     float errorCounter;
@@ -52,22 +55,20 @@ public class GameManager : MonoBehaviour
         inventory.Add("Metal", 100);
         inventory.Add("Quartz", 100);
         inventory.Add("Glass", 0);
-        inventory.Add("Ice", 0);
+        inventory.Add("Ice", 10);
+        inventory.Add("Fuel", 0);
 
         // Game screens
         gameUI.SetActive(true);
         buildScreen.SetActive(false);
         pauseScreen.SetActive(false);
 
-        // Inventory stuff
-        //inventory["Ore"] = 0;
-        //inventory["Metal"] = 0;
-
         ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
         iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " + inventory["Ice"];
+        fuelCount.GetComponent<TextMeshProUGUI>().text = "Fuel: " + inventory["Fuel"] + "/" + fuelStorage;
     }
 
     private void Update()
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
             buildInfo.transform.position = Input.mousePosition + tooltipOffset;
         }
 
+        // If the error message is visible
         if(errorIsActive)
         {
             errorCounter -= Time.deltaTime;
@@ -196,6 +198,13 @@ public class GameManager : MonoBehaviour
                         }
 
                         UpdateGUI();
+
+                        // If the built object is a fuel tank
+                        if (clone.GetComponent<BuildableObj>().objType == "Fuel storage")
+                        {
+                            fuelStorage += clone.GetComponent<BuildableObj>().storage;
+                            fuelCount.GetComponent<TextMeshProUGUI>().text = "Fuel: " + inventory["Fuel"] + "/" + fuelStorage;
+                        }
 
                         if (ironOreCount != null)
                             ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];

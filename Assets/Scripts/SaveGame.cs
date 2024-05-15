@@ -191,10 +191,17 @@ public class SaveGame : MonoBehaviour
                         clone.GetComponent<HabController>().CheckConnections();
                     }
 
-                    // if the building has an airlock
+                    // lf the building has an airlock
                     if (clone.GetComponent<AirlockController>() != null)
                     { clone.GetComponent<AirlockController>().gameManager = gameManager; }
 
+                    // If the building is a fuel tank
+                    if (clone.GetComponent<BuildableObj>().objType == "Fuel storage")
+                    {
+                        gameManager.GetComponent<GameManager>().fuelStorage += clone.GetComponent<BuildableObj>().storage;
+                    }
+
+                    // If the object has an addon
                     if (i.addon != "none")
                     {
                         GameObject addon = Instantiate(FindObj(i.addon), clone.GetComponent<BuildableObj>().addonPos.position, Quaternion.identity);

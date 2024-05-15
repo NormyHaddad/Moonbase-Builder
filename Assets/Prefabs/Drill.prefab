@@ -5367,7 +5367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4155974129856792541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4338787, y: 0.0019016266, z: -5.2188525}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5422,10 +5422,12 @@ MonoBehaviour:
   addon: {fileID: 0}
   gameManager: {fileID: 0}
   addonType: 
+  objType: 
   objName: Drill
   buildCost: 0
   isBuilt: 0
   isAddon: 0
+  storage: 0
   isColliding: 0
   materials:
   - Metal

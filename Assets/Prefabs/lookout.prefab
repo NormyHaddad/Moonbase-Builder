@@ -1522,8 +1522,8 @@ GameObject:
   - component: {fileID: 8854197322946340929}
   - component: {fileID: 8854197322946340930}
   m_Layer: 0
-  m_Name: Lookout
-  m_TagString: Untagged
+  m_Name: lookout
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1640,10 +1640,12 @@ MonoBehaviour:
   addon: {fileID: 0}
   gameManager: {fileID: 0}
   addonType: 
+  objType: 
   objName: Lookout
   buildCost: 0
   isBuilt: 0
   isAddon: 0
+  storage: 0
   isColliding: 0
   materials:
   - Iron Ore
