@@ -46,5 +46,21 @@ public class GameUiManager : MonoBehaviour
         if (val == 2)
             Screen.SetResolution(1280, 720, true);
     }
+
+    public void ToggleFullscreen(bool val)
+    {
+        Screen.fullScreen = val;
+        Debug.Log(val);
+    }
+
+    public void ShowMiniscreen(GameObject screen)
+    {
+        screen.SetActive(true);
+    }
+
+    public void HideMiniscreen(GameObject screen)
+    {
+        screen.SetActive(false);
+    }
 }
 

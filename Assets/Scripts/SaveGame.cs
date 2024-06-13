@@ -185,10 +185,24 @@ public class SaveGame : MonoBehaviour
                 {
                     GameObject clone = Instantiate(FindObj(i.obj), new Vector3(i.pos.x, i.pos.y, i.pos.z), Quaternion.identity);
                     clone.transform.Rotate(0f, i.rot, 0f);
+
+                    // Assign game manager to the object
+                    if (clone.GetComponent<BuildableObj>() != null)
+                    {
+                        clone.GetComponent<BuildableObj>().gameManager = gameManager;
+                    }
+
+                    // If the building is a hab
                     if (clone.GetComponent<HabController>() != null)
                     {
                         clone.GetComponent<HabController>().gameManager = gameManager;
                         clone.GetComponent<HabController>().CheckConnections();
+                    }
+
+                    // If the building is a refinery
+                    if (clone.GetComponent<FuelRefinerController>() != null)
+                    {
+                        clone.GetComponent<FuelRefinerController>().gameManager = gameManager;
                     }
 
                     // lf the building has an airlock

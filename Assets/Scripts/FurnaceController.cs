@@ -49,7 +49,7 @@ public class FurnaceController : MonoBehaviour
             {
                 gameManager.GetComponent<GameManager>().inventory["Iron Ore"] -= 1;
                 gameManager.GetComponent<GameManager>().ironOreCount.GetComponent<TextMeshProUGUI>().text =
-                    "Ore: " + gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
+                    "Iron Ore: " + gameManager.GetComponent<GameManager>().inventory["Iron Ore"];
 
                 furnaceInv += 1;
             }

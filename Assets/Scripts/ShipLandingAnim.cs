@@ -27,10 +27,17 @@ public class ShipLandingAnim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
+
         fadeStarted = false;
         speed = descentSpeed;
 
         PlayerPrefs.SetString("Loaded", "no");
+
+        foreach (GameObject button in buttonsToFade) 
+        {
+            button.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -58,6 +65,10 @@ public class ShipLandingAnim : MonoBehaviour
             {
                 StartCoroutine(FadeInMenu());
                 fadeStarted = true;
+            }
+            foreach (GameObject button in buttonsToFade)
+            {
+                button.SetActive(true);
             }
         }
     }

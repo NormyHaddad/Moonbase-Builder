@@ -1,0 +1,361 @@
+{
+  "playerData": {
+    "position": {
+      "x": 24.0824585,
+      "y": 0.00189852715,
+      "z": -10.5488281
+    },
+    "inventory": {
+      "Iron Ore": 835,
+      "Metal": 755,
+      "Quartz": 960,
+      "Glass": 0,
+      "Ice": 0,
+      "Fuel": 0
+    }
+  },
+  "worldObjects": {
+    "list": [
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 3.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Large Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 3.0,
+          "y": 0.0,
+          "z": 22.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Large Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 19.0,
+          "y": 0.0,
+          "z": 22.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 11.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 19.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Lookout",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 26.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": -9.0,
+          "y": 0.0,
+          "z": 22.5
+        },
+        "rot": 0.7071068
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 3.0,
+          "y": 0.0,
+          "z": 34.5
+        },
+        "rot": 1.0
+      },
+      {
+        "obj": "Drill",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": -3.0,
+          "y": 0.0,
+          "z": 2.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Drill",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": -7.5,
+          "y": 0.0,
+          "z": -7.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Refinery",
+        "addon": "none",
+        "pos": {
+          "x": 6.5,
+          "y": 0.0,
+          "z": -12.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 7.0,
+          "y": 0.0,
+          "z": -16.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 10.5,
+          "y": 0.0,
+          "z": -16.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 3.5,
+          "y": 0.0,
+          "z": -16.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 3.5,
+          "y": 0.0,
+          "z": -20.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 7.0,
+          "y": 0.0,
+          "z": -20.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 10.5,
+          "y": 0.0,
+          "z": -20.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 3.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Large Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 3.0,
+          "y": 0.0,
+          "z": 22.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Large Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 19.0,
+          "y": 0.0,
+          "z": 22.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 11.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 19.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Lookout",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 26.0,
+          "y": 0.0,
+          "z": 10.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": -9.0,
+          "y": 0.0,
+          "z": 22.5
+        },
+        "rot": 0.7071068
+      },
+      {
+        "obj": "Habitat",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": 3.0,
+          "y": 0.0,
+          "z": 34.5
+        },
+        "rot": 1.0
+      },
+      {
+        "obj": "Drill",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": -3.0,
+          "y": 0.0,
+          "z": 2.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Drill",
+        "addon": "Solar Panel",
+        "pos": {
+          "x": -7.5,
+          "y": 0.0,
+          "z": -7.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Refinery",
+        "addon": "none",
+        "pos": {
+          "x": 6.5,
+          "y": 0.0,
+          "z": -12.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 7.0,
+          "y": 0.0,
+          "z": -16.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 10.5,
+          "y": 0.0,
+          "z": -16.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 3.5,
+          "y": 0.0,
+          "z": -16.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 3.5,
+          "y": 0.0,
+          "z": -20.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 7.0,
+          "y": 0.0,
+          "z": -20.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": 10.5,
+          "y": 0.0,
+          "z": -20.0
+        },
+        "rot": 0.0
+      }
+    ]
+  }
+}

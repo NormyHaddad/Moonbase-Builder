@@ -50,12 +50,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
+
         // New inventory system
-        inventory.Add("Iron Ore", 100);
-        inventory.Add("Metal", 100);
-        inventory.Add("Quartz", 100);
+        inventory.Add("Iron Ore", 0);
+        inventory.Add("Metal", 0);
+        inventory.Add("Quartz", 0);
         inventory.Add("Glass", 0);
-        inventory.Add("Ice", 10);
+        inventory.Add("Ice", 0);
         inventory.Add("Fuel", 0);
 
         // Game screens
@@ -69,6 +71,9 @@ public class GameManager : MonoBehaviour
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
         iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " + inventory["Ice"];
         fuelCount.GetComponent<TextMeshProUGUI>().text = "Fuel: " + inventory["Fuel"] + "/" + fuelStorage;
+
+        // Limit FPS to prevent excess GPU/CPU usage
+        Application.targetFrameRate = 60;
     }
 
     private void Update()
@@ -110,8 +115,8 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.S))
             { SaveGame(); }
-            else if (Input.GetKeyDown(KeyCode.L))
-            { Debug.Log("Loading Data"); worldSaver.GetComponent<SaveGame>().LoadGame(); }
+            //else if (Input.GetKeyDown(KeyCode.L))
+            //{ Debug.Log("Loading Data"); worldSaver.GetComponent<SaveGame>().LoadGame(); }
         }
 
         if (building && buildMode)
@@ -124,9 +129,9 @@ public class GameManager : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    // More sensitive y point rounding
+                    // No y point rounding
                     pos = new Vector3(Mathf.Round(2 * hit.point.x) / 2, 
-                        Mathf.Round(4 * hit.point.y) / 4, 
+                        hit.point.y, 
                         Mathf.Round(2 * hit.point.z) / 2);
                 }
             }
@@ -165,6 +170,7 @@ public class GameManager : MonoBehaviour
                         builtObjs.Add(clone);
                         //worldSaver.GetComponent<SaveGame>().AddObjToList(clone);
 
+                        // Assign GameManager to the scrips on certain objects when built
                         // if the building is a hab
                         if (clone.GetComponent<HabController>() != null)
                         {
@@ -176,6 +182,12 @@ public class GameManager : MonoBehaviour
                         if (clone.GetComponent<AirlockController>() != null)
                         {
                             clone.GetComponent<AirlockController>().gameManager = gameObject;
+                        }
+
+                        // if the object is a refinery
+                        if (clone.GetComponent<FuelRefinerController>() != null)
+                        {
+                            clone.GetComponent<FuelRefinerController>().gameManager = gameObject;
                         }
 
                         // Update the GUI
@@ -337,7 +349,9 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
         pauseScreen.SetActive(true);
+        gameUI.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     
     public void UnpauseGame()
@@ -345,7 +359,9 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pauseScreen.SetActive(false);
+        gameUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void ShowBuildTooltip(string name, List<string> materials, List<int> amount)
