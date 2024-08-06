@@ -16,7 +16,12 @@ public class BuildableObj : MonoBehaviour
     public string objName;
     public int buildCost;
     public bool isBuilt = false;
+    public bool isPowered = false;
     public bool isAddon = false;
+
+    public bool generatesResources;
+    public string resourceGenerated;
+    public float generationCooldown;
 
     public int storage;
 
@@ -24,6 +29,15 @@ public class BuildableObj : MonoBehaviour
 
     public List<string> materials;
     public List<int> amount;
+
+    void Update()
+    {
+        // If the object is powered
+        if (addon != null && addon.GetComponent<BuildableObj>().addonType == "PowerGen")
+        { isPowered = true; }
+
+        if (isPowered == true ) { StartCoroutine(GenerateResource()); }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -41,5 +55,12 @@ public class BuildableObj : MonoBehaviour
             isColliding = false;
             Debug.Log("no col");
         }
+    }
+
+    // For more generic resource generators without specific conditions
+    IEnumerator GenerateResource()
+    {
+        yield return new WaitForSeconds(generationCooldown);
+        gameManager.GetComponent<GameManager>().inventory.Add(resourceGenerated, 1);
     }
 }

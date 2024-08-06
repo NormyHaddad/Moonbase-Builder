@@ -14,15 +14,19 @@ public class GameManager : MonoBehaviour
     public GameObject buildScreen;
     public GameObject pauseScreen;
     public GameObject gameUI;
+    public Vector3 tooltipOffset;
+
+    // Inventory UI
+    public GameObject regolithCount;
     public GameObject ironOreCount;
     public GameObject quartzCount;
+    public GameObject concreteCount;
     public GameObject metalCount;
     public GameObject glassCount;
     public GameObject iceCount;
     public GameObject fuelCount;
     public GameObject errorMessage;
     public GameObject buildInfo;
-    public Vector3 tooltipOffset;
 
     // Saving
     public List<GameObject> builtObjs;
@@ -53,19 +57,26 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         // New inventory system
-        inventory.Add("Iron Ore", 0);
-        inventory.Add("Metal", 0);
-        inventory.Add("Quartz", 0);
+        inventory.Add("Regolith", 100);
+        inventory.Add("Iron Ore", 200);
+        inventory.Add("Concrete", 200);
+        inventory.Add("Metal", 100);
+        inventory.Add("Quartz", 100);
         inventory.Add("Glass", 0);
-        inventory.Add("Ice", 0);
-        inventory.Add("Fuel", 0);
+        inventory.Add("Ice", 10);
+        inventory.Add("Fuel", 10);
+
+        // These are essential, separate from the inventory resources
+        inventory.Add("Food", 0);
 
         // Game screens
         gameUI.SetActive(true);
         buildScreen.SetActive(false);
         pauseScreen.SetActive(false);
 
+        regolithCount.GetComponent<TextMeshProUGUI>().text = "Regolith: " + inventory["Regolith"];
         ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+        concreteCount.GetComponent<TextMeshProUGUI>().text = "Concrete: " + inventory["Concrete"];
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
@@ -129,10 +140,10 @@ public class GameManager : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    // No y point rounding
-                    pos = new Vector3(Mathf.Round(2 * hit.point.x) / 2, 
+                    // Smoother rounding
+                    pos = new Vector3(Mathf.Round(4 * hit.point.x) / 4, 
                         hit.point.y, 
-                        Mathf.Round(2 * hit.point.z) / 2);
+                        Mathf.Round(4 * hit.point.z) / 4);
                 }
             }
             else // If the object is not an addon

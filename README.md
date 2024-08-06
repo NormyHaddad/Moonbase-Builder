@@ -29,3 +29,6 @@
  - Soundtrack 3 (Stellardrone - An Ocean of Galaxies). Licensed under Creative Commons. https://creativecommons.org/licenses/by/4.0/#
  - Soundtrack 4 (Stellardrone - Infinite Void). Licensed under Creative Commons. https://creativecommons.org/licenses/by/4.0/#
  - Soundtrack 5 (Stellardrone - The Edge of Forever). Licensed under Creative Commons. https://creativecommons.org/licenses/by/4.0/#
+ 
+#### Other:
+ - Skybox: Created with Space Engine

@@ -101,7 +101,9 @@ public class PlayerInteractions : MonoBehaviour
                 {
                     timeMouseHeld = 0f;
                     string oreType = hit.transform.GetComponent<Ore>().oreType;
+                    gameManager.GetComponent<GameManager>().inventory["Regolith"]++;
                     gameManager.GetComponent<GameManager>().inventory[oreType]++;
+                    gameManager.GetComponent<GameManager>().regolithCount.GetComponent<TextMeshProUGUI>().text = "Regolith: " + gameManager.GetComponent<GameManager>().inventory["Regolith"];
                     mine.pitch = Random.Range(0.8f, 1.2f);
                     mineFX.transform.position = hit.point;
                     mineFX.Play();
