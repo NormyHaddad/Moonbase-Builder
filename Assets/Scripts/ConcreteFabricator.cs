@@ -68,7 +68,7 @@ public class ConcreteFabricator : MonoBehaviour
             }
         }
 
-        collectMsg = "Collect " + fabricatorOut.ToString() + " metal";
+        collectMsg = "Collect " + fabricatorOut.ToString() + " Concrete";
 
 
         // Press C to collect concrete
@@ -79,7 +79,7 @@ public class ConcreteFabricator : MonoBehaviour
                 "Concrete: " + gameManager.GetComponent<GameManager>().inventory["Concrete"];
             fabricatorOut = 0;
             gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Mix Concrete");
-            collectMsg = "Collect " + fabricatorOut.ToString() + " concrete";
+            collectMsg = "Collect " + fabricatorOut.ToString() + " Concrete";
         }
 
         // Only want to start the coroutine once, and only when there's resources in it, and only when its powered
@@ -101,7 +101,7 @@ public class ConcreteFabricator : MonoBehaviour
             yield return new WaitForSeconds(1f);
             fabricatorInv -= 1;
             fabricatorOut += 1;
-            collectMsg = "Collect " + fabricatorOut.ToString() + " metal";
+            collectMsg = "Collect " + fabricatorOut.ToString() + " Concrete";
 
             if (playerInRange)
             {

@@ -243,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &135990191
 Transform:
   m_ObjectHideFlags: 0
@@ -1604,8 +1604,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.47058824, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5259,9 +5259,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.5254902, b: 1, a: 1}
+  m_Color: {r: 0.627451, g: 0.7058824, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 10
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -5414,7 +5414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &407478128
 Transform:
   m_ObjectHideFlags: 0
@@ -6775,8 +6775,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.47058824, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11674,8 +11674,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.54901963, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -16488,8 +16488,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.54901963, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -19967,9 +19967,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.5254902, b: 1, a: 1}
+  m_Color: {r: 0.627451, g: 0.7058824, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 10
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -21396,8 +21396,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.54901963, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -26763,8 +26763,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.54901963, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -30922,9 +30922,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.5254902, b: 1, a: 1}
+  m_Color: {r: 0.627451, g: 0.7058824, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 10
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -31510,9 +31510,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.5254902, b: 1, a: 1}
+  m_Color: {r: 0.627451, g: 0.7058824, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 10
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -31597,7 +31597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1730066295
 Transform:
   m_ObjectHideFlags: 0
@@ -32958,8 +32958,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.47058824, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -37124,7 +37124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2015374382
 Transform:
   m_ObjectHideFlags: 0
@@ -38485,8 +38485,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.6666667, b: 1, a: 0.039215688}
-        key1: {r: 1, g: 0.6666667, b: 1, a: 0}
+        key0: {r: 0.47058824, g: 0.627451, b: 1, a: 0.039215688}
+        key1: {r: 0.54901963, g: 0.627451, b: 1, a: 0}
         key2: {r: 1, g: 0.78431374, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

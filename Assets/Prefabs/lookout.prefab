@@ -1644,14 +1644,18 @@ MonoBehaviour:
   objName: Lookout
   buildCost: 0
   isBuilt: 0
+  isPowered: 0
   isAddon: 0
+  generatesResources: 0
+  resourceGenerated: 
+  generationCooldown: 0
   storage: 0
   isColliding: 0
   materials:
-  - Iron Ore
+  - Concrete
   - Metal
   - Quartz
-  amount: 0f000000050000000a000000
+  amount: 19000000050000000a000000
 --- !u!1 &8854197322049460827
 GameObject:
   m_ObjectHideFlags: 0

@@ -111,9 +111,10 @@ MonoBehaviour:
   storage: 5
   isColliding: 0
   materials:
-  - Iron Ore
+  - Concrete
   - Metal
-  amount: 190000000a000000
+  - Quartz
+  amount: 190000000f0000000f000000
 --- !u!65 &7705166228589402236
 BoxCollider:
   m_ObjectHideFlags: 0

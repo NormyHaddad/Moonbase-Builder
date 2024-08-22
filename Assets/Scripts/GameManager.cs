@@ -58,13 +58,13 @@ public class GameManager : MonoBehaviour
 
         // New inventory system
         inventory.Add("Regolith", 100);
-        inventory.Add("Iron Ore", 200);
-        inventory.Add("Concrete", 200);
+        inventory.Add("Iron Ore", 100);
+        inventory.Add("Concrete", 100);
         inventory.Add("Metal", 100);
         inventory.Add("Quartz", 100);
         inventory.Add("Glass", 0);
-        inventory.Add("Ice", 10);
-        inventory.Add("Fuel", 10);
+        inventory.Add("Ice", 100);
+        inventory.Add("Fuel", 100);
 
         // These are essential, separate from the inventory resources
         inventory.Add("Food", 0);
@@ -126,8 +126,6 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.S))
             { SaveGame(); }
-            //else if (Input.GetKeyDown(KeyCode.L))
-            //{ Debug.Log("Loading Data"); worldSaver.GetComponent<SaveGame>().LoadGame(); }
         }
 
         if (building && buildMode)
@@ -140,19 +138,40 @@ public class GameManager : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    // Smoother rounding
-                    pos = new Vector3(Mathf.Round(4 * hit.point.x) / 4, 
-                        hit.point.y, 
-                        Mathf.Round(4 * hit.point.z) / 4);
+                    Debug.Log(hit.transform.tag);
+
+                    // If the ray hits an object
+                    if (hit.transform.GetComponent<BuildableObj>() != null)
+                    {
+                        // If the object has an addon position
+                        if (hit.transform.GetComponent<BuildableObj>().addonPos != null)
+                        {
+                            pos = hit.transform.GetComponent<BuildableObj>().addonPos.position;
+                        }
+
+                        // If it does not
+                        else 
+                        {
+                            pos = new Vector3(Mathf.Round(4 * hit.point.x) / 4, hit.point.y, Mathf.Round(4 * hit.point.z) / 4);
+                        }
+                    }
+
+                    //If the ray does not hit a building
+                    if (hit.transform.GetComponent<BuildableObj>() == null) 
+                    { 
+                        pos = new Vector3(Mathf.Round(4 * hit.point.x) / 4, hit.point.y, Mathf.Round(4 * hit.point.z) / 4); 
+                    } 
                 }
             }
             else // If the object is not an addon
             {
                 if (Physics.Raycast(ray, out hit, 100, mask))
                 {
-                    pos = new Vector3(Mathf.Round(2 * hit.point.x) / 2, 
+                    pos = new Vector3(
+                        Mathf.Round(2 * hit.point.x) / 2, 
                         Mathf.Round(hit.point.y) / 2, 
-                        Mathf.Round(2 * hit.point.z) / 2);
+                        Mathf.Round(2 * hit.point.z) / 2
+                        );
                 }
             }
 
@@ -202,23 +221,25 @@ public class GameManager : MonoBehaviour
                         }
 
                         // Update the GUI
-                        List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
-                        List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
+                        //List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
+                        //List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
 
-                        foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
-                        {
-                            if (item == "Iron Ore")
-                            { inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")]; }
+                        //foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
+                        //{
+                        //    if (item == "Iron Ore")
+                        //    { inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")]; }
 
-                            if (item == "Glass")
-                            { inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")]; }
+                        //    if (item == "Glass")
+                        //    { inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")]; }
 
-                            if (item == "Metal")
-                            { inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")]; }
+                        //    if (item == "Metal")
+                        //    { inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")]; }
 
-                            if (item == "Quartz")
-                            { inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")]; }
-                        }
+                        //    if (item == "Quartz")
+                        //    { inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")]; }
+                        //}
+
+                        UpdateInventory(clone.GetComponent<BuildableObj>().materials, clone.GetComponent<BuildableObj>().amount);
 
                         UpdateGUI();
 
@@ -321,10 +342,32 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGUI()
     {
+        regolithCount.GetComponent<TextMeshProUGUI>().text = "Regolith: " + inventory["Regolith"];
         ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+        concreteCount.GetComponent<TextMeshProUGUI>().text = "Concrete: " + inventory["Concrete"];
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+    }
+
+    // A function to get this big block of code outside of the main update loop and reduce clutter
+    public void UpdateInventory(List<string> materials, List<int> amount)
+    {
+        foreach (string item in materials) // Update the player inventory
+        {
+            if (item == "Regolith")
+            { inventory["Regolith"] -= amount[materials.IndexOf("Regolith")]; }
+            if (item == "Iron Ore")
+            { inventory["Iron Ore"] -= amount[materials.IndexOf("Iron Ore")]; }
+            if (item == "Concrete")
+            { inventory["Concrete"] -= amount[materials.IndexOf("Concrete")]; }
+            if (item == "Glass")
+            { inventory["Glass"] -= amount[materials.IndexOf("Glass")]; }
+            if (item == "Metal")
+            { inventory["Metal"] -= amount[materials.IndexOf("Metal")]; }
+            if (item == "Quartz")
+            { inventory["Quartz"] -= amount[materials.IndexOf("Quartz")]; }
+        }
     }
 
     public void DoErrorMessage(string message, float timeToDecay = 5f)
@@ -384,11 +427,15 @@ public class GameManager : MonoBehaviour
         string mats = "";
 
         // Iterate through the materials and form them into a string
-        foreach (int num in amount)
+        foreach (string mat in materials)
         {
-            mats += materials[amount.IndexOf(num)];
+            //mats += materials[amount.IndexOf(num)];
+            //mats += ": ";
+            //mats += num.ToString();
+            //mats += "\n";
+            mats += mat;
             mats += ": ";
-            mats += num.ToString();
+            mats += amount[materials.IndexOf(mat)];
             mats += "\n";
         }
         mats.Remove(mats.Length - 1); // Remove the last unneeded new line

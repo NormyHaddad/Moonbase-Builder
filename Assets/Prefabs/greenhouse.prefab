@@ -889,7 +889,7 @@ MonoBehaviour:
   storage: 0
   isColliding: 0
   materials:
-  - Iron Ore
+  - Concrete
   - Metal
   - Quartz
   amount: 0a0000000f00000019000000

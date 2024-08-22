@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool isJumping;
     bool canJump;
+    bool canMove;
 
     public GameObject gameManager;
     float gravity;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = false;
         canJump = true;
+        canMove = true;
         gravity = gameManager.GetComponent<GameManager>().gravity;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -40,26 +42,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        MyInput();
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && canJump)
+        if (canMove)
         {
-            rb.AddForce(Vector3.up * jumpStrength);
-            isJumping = true;
-            StartCoroutine(JumpCooldown());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
-        {
-            if(!gameManager.GetComponent<GameManager>().buildMode)
+            MyInput();
+            if (Input.GetKeyDown(KeyCode.Space) && !isJumping && canJump)
             {
-                rcsHiss.Play();
+                rb.AddForce(Vector3.up * jumpStrength);
+                isJumping = true;
+                StartCoroutine(JumpCooldown());
             }
-        }
-        if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
-        {
-            if(!gameManager.GetComponent<GameManager>().buildMode)
+
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
             {
-                rcsHiss.Stop();
+                if (!gameManager.GetComponent<GameManager>().buildMode)
+                {
+                    rcsHiss.Play();
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
+            {
+                if (!gameManager.GetComponent<GameManager>().buildMode)
+                {
+                    rcsHiss.Stop();
+                }
             }
         }
 

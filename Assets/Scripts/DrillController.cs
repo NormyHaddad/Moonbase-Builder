@@ -21,6 +21,7 @@ public class DrillController : MonoBehaviour
     bool canMine;
     bool isMining;
     bool isPowered = false;
+    public bool isWaterExtractor;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class DrillController : MonoBehaviour
         oreStorage = 0;
         canMine = false;
         isMining = false;
-        collectMessage = "Press C to collect " + oreStorage + " ore";
+        collectMessage = "";
     }
 
     // Update is called once per frame
@@ -45,19 +46,33 @@ public class DrillController : MonoBehaviour
         }
 
         // Check if drill is above ore
-        Ray newRay = new Ray(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1, 0));
+        Ray newRay = new Ray(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1.5f, 0));
         Debug.DrawRay(transform.position + new Vector3(0, 1, 0), new Vector3(0, -1.5f, 0), Color.magenta, 1f);
         RaycastHit hit;
 
+        // If the ray hits an ore, the drill is not currently mining, the drill is powered, and the drill has enough storage
         if (Physics.Raycast(newRay, out hit, 1, oreLayer) && !isMining && oreStorage < storageLimit && isPowered)
         {
-            canMine = true;
-            StartCoroutine(CollectOre());
-            oreType = hit.transform.GetComponent<Ore>().oreType;
-            isMining = true;
-            drillFX.Play();
-            Debug.Log(oreType);
             Debug.Log(hit.transform.tag);
+            oreType = hit.transform.GetComponent<Ore>().oreType;
+
+            // If the drill is a water extractor, and the targeted ore is ice
+            if (isWaterExtractor && hit.transform.GetComponent<Ore>().oreType == "Ice")
+            {
+                canMine = true;
+                StartCoroutine(CollectOre());
+                isMining = true;
+                if (drillFX != null) { drillFX.Play(); }
+            }
+
+            // If the drill is a normal drill, and the targeted ore is not ice
+            if (!isWaterExtractor && hit.transform.GetComponent<Ore>().oreType != "Ice")
+            {
+                canMine = true;
+                StartCoroutine(CollectOre());
+                isMining = true;
+                if (drillFX != null) { drillFX.Play(); }
+            }
         }
 
         if (oreStorage >= storageLimit)
@@ -65,7 +80,7 @@ public class DrillController : MonoBehaviour
             canMine = false;
             StopCoroutine(CollectOre());
             isMining = false;
-            drillFX.Stop();
+            if (drillFX != null) { drillFX.Stop(); }
         }
 
         if (Input.GetKeyDown(KeyCode.C) && playerInRange)
@@ -77,6 +92,9 @@ public class DrillController : MonoBehaviour
             if (oreType == "Quartz")
             { gameManager.GetComponent<GameManager>().quartzCount.GetComponent<TextMeshProUGUI>().text =
                     "Quartz: " + gameManager.GetComponent<GameManager>().inventory["Quartz"]; }
+            if (oreType == "Ice")
+            { gameManager.GetComponent<GameManager>().iceCount.GetComponent<TextMeshProUGUI>().text =
+                    "Ice: " + gameManager.GetComponent<GameManager>().inventory["Ice"]; }
 
             oreStorage = 0;
             collectMessage = "Press C to collect " + oreStorage + " " + oreType;
@@ -112,7 +130,6 @@ public class DrillController : MonoBehaviour
         {
             playerInRange = false;
             gameManager.GetComponent<GameUiManager>().HideInteractTooltip();
-            //player = null;
         }
     }
 }
