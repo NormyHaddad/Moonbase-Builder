@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.GetComponent<GameManager>().buildMode) // If not in build mode
+        if (!gameManager.GetComponent<GameManager>().buildMode && !gameManager.GetComponent<GameManager>().playerMovementLock) // If not in build mode or not locked
         {
             cam.transform.rotation = transform.rotation;
             buildInit = false;

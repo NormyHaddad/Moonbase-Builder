@@ -45,25 +45,27 @@ public class PlayerMovement : MonoBehaviour
         if (canMove)
         {
             MyInput();
-            if (Input.GetKeyDown(KeyCode.Space) && !isJumping && canJump)
+            if (!gameManager.GetComponent<GameManager>().buildMode && !gameManager.GetComponent<GameManager>().playerMovementLock)
             {
-                rb.AddForce(Vector3.up * jumpStrength);
-                isJumping = true;
-                StartCoroutine(JumpCooldown());
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
-            {
-                if (!gameManager.GetComponent<GameManager>().buildMode)
+                if (Input.GetKeyDown(KeyCode.Space) && !isJumping && canJump)
                 {
-                    rcsHiss.Play();
+                    rb.AddForce(Vector3.up * jumpStrength);
+                    isJumping = true;
+                    StartCoroutine(JumpCooldown());
                 }
-            }
-            if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
-            {
-                if (!gameManager.GetComponent<GameManager>().buildMode)
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
                 {
-                    rcsHiss.Stop();
+                    if (!gameManager.GetComponent<GameManager>().buildMode)
+                    {
+                        rcsHiss.Play();
+                    }
+                }
+                if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
+                {
+                    if (!gameManager.GetComponent<GameManager>().buildMode)
+                    {
+                        rcsHiss.Stop();
+                    }
                 }
             }
         }
@@ -98,11 +100,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (!gameManager.GetComponent<GameManager>().buildMode)
+        // Dont move the player if they are in build mode or are locked for whatever reason
+        if (!gameManager.GetComponent<GameManager>().buildMode && !gameManager.GetComponent<GameManager>().playerMovementLock)
         {
             // Calculate movement direction
             moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-            //rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
             if (horizontalInput == 0 && verticalInput == 0)

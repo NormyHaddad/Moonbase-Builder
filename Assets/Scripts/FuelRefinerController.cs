@@ -38,13 +38,13 @@ public class FuelRefinerController : MonoBehaviour
             if (addon == null || addon.GetComponent<BuildableObj>().addonType != "PowerGen")
                 gameManager.GetComponent<GameManager>().DoErrorMessage("Refinery is not powered", 3f);
 
-            // Check if there is enough storage to store produced fuel, and if the player has ice to refine
-            if (gameManager.GetComponent<GameManager>().inventory["Ice"] > 0)
+            // Check if there is enough storage to store produced fuel, and if the player has water to refine
+            if (gameManager.GetComponent<GameManager>().inventory["Water"] > 0)
             {
                 if (gameManager.GetComponent<GameManager>().inventory["Fuel"] + refineryInv < gameManager.GetComponent<GameManager>().fuelStorage)
                 {
-                    gameManager.GetComponent<GameManager>().inventory["Ice"] -= 1;
-                    gameManager.GetComponent<GameManager>().iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " + gameManager.GetComponent<GameManager>().inventory["Ice"];
+                    gameManager.GetComponent<GameManager>().inventory["Water"] -= 1;
+                    gameManager.GetComponent<GameManager>().waterCount.GetComponent<TextMeshProUGUI>().text = "Water: " + gameManager.GetComponent<GameManager>().inventory["Water"];
                     refineryInv += 1;
                 }
                 else
@@ -52,7 +52,7 @@ public class FuelRefinerController : MonoBehaviour
 
             }
             else
-                gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough ice", 4f);
+                gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough water", 4f);
         }
 
         // Only wanna start the coroutine once, only when there's ore in it, and only when its powered

@@ -56,8 +56,8 @@ public class DrillController : MonoBehaviour
             Debug.Log(hit.transform.tag);
             oreType = hit.transform.GetComponent<Ore>().oreType;
 
-            // If the drill is a water extractor, and the targeted ore is ice
-            if (isWaterExtractor && hit.transform.GetComponent<Ore>().oreType == "Ice")
+            // If the drill is a water extractor, and the targeted ore is water
+            if (isWaterExtractor && hit.transform.GetComponent<Ore>().oreType == "Water")
             {
                 canMine = true;
                 StartCoroutine(CollectOre());
@@ -65,8 +65,8 @@ public class DrillController : MonoBehaviour
                 if (drillFX != null) { drillFX.Play(); }
             }
 
-            // If the drill is a normal drill, and the targeted ore is not ice
-            if (!isWaterExtractor && hit.transform.GetComponent<Ore>().oreType != "Ice")
+            // If the drill is a normal drill, and the targeted ore is not water
+            if (!isWaterExtractor && hit.transform.GetComponent<Ore>().oreType != "Water")
             {
                 canMine = true;
                 StartCoroutine(CollectOre());
@@ -92,9 +92,9 @@ public class DrillController : MonoBehaviour
             if (oreType == "Quartz")
             { gameManager.GetComponent<GameManager>().quartzCount.GetComponent<TextMeshProUGUI>().text =
                     "Quartz: " + gameManager.GetComponent<GameManager>().inventory["Quartz"]; }
-            if (oreType == "Ice")
-            { gameManager.GetComponent<GameManager>().iceCount.GetComponent<TextMeshProUGUI>().text =
-                    "Ice: " + gameManager.GetComponent<GameManager>().inventory["Ice"]; }
+            if (oreType == "Water")
+            { gameManager.GetComponent<GameManager>().waterCount.GetComponent<TextMeshProUGUI>().text =
+                    "Water: " + gameManager.GetComponent<GameManager>().inventory["Water"]; }
 
             oreStorage = 0;
             collectMessage = "Press C to collect " + oreStorage + " " + oreType;

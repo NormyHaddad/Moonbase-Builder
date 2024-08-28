@@ -15,6 +15,8 @@ public class GameUiManager : MonoBehaviour
     public GameObject tooltipButton;
     public GameObject tooltipText;
 
+    public GameObject orderScreen;
+
 
     public void UpdateHotbarIndicator(string key)
     {
@@ -50,7 +52,6 @@ public class GameUiManager : MonoBehaviour
     public void ToggleFullscreen(bool val)
     {
         Screen.fullScreen = val;
-        Debug.Log(val);
     }
 
     public void ShowMiniscreen(GameObject screen)

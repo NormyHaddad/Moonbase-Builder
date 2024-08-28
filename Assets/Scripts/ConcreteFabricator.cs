@@ -38,31 +38,31 @@ public class ConcreteFabricator : MonoBehaviour
                 gameManager.GetComponent<GameManager>().DoErrorMessage("Fabricator is not powered", 3f);
 
             // Won't work if you have no resources to put in
-            if (gameManager.GetComponent<GameManager>().inventory["Regolith"] > 0 && gameManager.GetComponent<GameManager>().inventory["Ice"] > 0)
+            if (gameManager.GetComponent<GameManager>().inventory["Regolith"] > 0 && gameManager.GetComponent<GameManager>().inventory["Water"] > 0)
             {
                 gameManager.GetComponent<GameManager>().inventory["Regolith"] -= 1;
-                gameManager.GetComponent<GameManager>().inventory["Ice"] -= 1;
+                gameManager.GetComponent<GameManager>().inventory["Water"] -= 1;
                 gameManager.GetComponent<GameManager>().regolithCount.GetComponent<TextMeshProUGUI>().text =
                     "Regolith: " + gameManager.GetComponent<GameManager>().inventory["Regolith"];
-                gameManager.GetComponent<GameManager>().iceCount.GetComponent<TextMeshProUGUI>().text =
-                    "Ice: " + gameManager.GetComponent<GameManager>().inventory["Ice"];
+                gameManager.GetComponent<GameManager>().waterCount.GetComponent<TextMeshProUGUI>().text =
+                    "Water: " + gameManager.GetComponent<GameManager>().inventory["Water"];
 
                 fabricatorInv += 1;
             }
             else
             {
                 string msg = "";
-                if (gameManager.GetComponent<GameManager>().inventory["Regolith"] <= 0 && gameManager.GetComponent<GameManager>().inventory["Ice"] > 0)
+                if (gameManager.GetComponent<GameManager>().inventory["Regolith"] <= 0 && gameManager.GetComponent<GameManager>().inventory["Water"] > 0)
                 {
                     msg = "Not enough regolith";
                 }
-                else if (gameManager.GetComponent<GameManager>().inventory["Ice"] <= 0 && gameManager.GetComponent<GameManager>().inventory["Regolith"] > 0)
+                else if (gameManager.GetComponent<GameManager>().inventory["Water"] <= 0 && gameManager.GetComponent<GameManager>().inventory["Regolith"] > 0)
                 {
-                    msg = "Not enough ice";
+                    msg = "Not enough water";
                 }
-                else if (gameManager.GetComponent<GameManager>().inventory["Ice"] <= 0 && gameManager.GetComponent<GameManager>().inventory["Regolith"] <= 0)
+                else if (gameManager.GetComponent<GameManager>().inventory["Water"] <= 0 && gameManager.GetComponent<GameManager>().inventory["Regolith"] <= 0)
                 {
-                    msg = "Not enough ice, regolith";
+                    msg = "Not enough water, regolith";
                 }
                 gameManager.GetComponent<GameManager>().DoErrorMessage(msg, 5f);
             }

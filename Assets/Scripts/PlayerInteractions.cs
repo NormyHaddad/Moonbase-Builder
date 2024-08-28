@@ -13,7 +13,7 @@ public class PlayerInteractions : MonoBehaviour
     public GameObject gameManager;
     public GameObject ironOreCount;
     public GameObject quartzCount;
-    public GameObject iceCount;
+    public GameObject waterCount;
     public Camera cam;
     public GameObject lights;
     public GameObject progressBar;
@@ -65,7 +65,7 @@ public class PlayerInteractions : MonoBehaviour
                 if (chosenTool == hotbarStates.waterProbe)
                 {
                     probe.GetComponent<ProbeAnimController>().PlayAnimation();
-                    if (hit.transform.CompareTag("Ore") && hit.transform.GetComponent<Ore>().oreType == "Ice")
+                    if (hit.transform.CompareTag("Ore") && hit.transform.GetComponent<Ore>().oreType == "Water")
                     {
                         gameManager.GetComponent<GameManager>().DoErrorMessage("Found water", 3f);
                     }
@@ -114,9 +114,9 @@ public class PlayerInteractions : MonoBehaviour
                     if (quartzCount != null) {
                         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " +
                             gameManager.GetComponent<GameManager>().inventory["Quartz"]; }
-                    if (iceCount != null) {
-                        iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " +
-                            gameManager.GetComponent<GameManager>().inventory["Ice"]; }
+                    if (waterCount != null) {
+                        waterCount.GetComponent<TextMeshProUGUI>().text = "Water: " +
+                            gameManager.GetComponent<GameManager>().inventory["Water"]; }
                 }
             }
         }

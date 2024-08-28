@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject concreteCount;
     public GameObject metalCount;
     public GameObject glassCount;
-    public GameObject iceCount;
+    public GameObject waterCount;
     public GameObject fuelCount;
+    public GameObject fertilizerCount;
     public GameObject errorMessage;
     public GameObject buildInfo;
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     // Gameplay
     public int fuelStorage;
     public bool isPaused = false;
+    public bool playerMovementLock;
 
     public bool mouseOverButton = false;
 
@@ -63,11 +65,12 @@ public class GameManager : MonoBehaviour
         inventory.Add("Metal", 100);
         inventory.Add("Quartz", 100);
         inventory.Add("Glass", 0);
-        inventory.Add("Ice", 100);
+        inventory.Add("Water", 100);
         inventory.Add("Fuel", 100);
+        inventory.Add("Fertilizer", 100);
 
         // These are essential, separate from the inventory resources
-        inventory.Add("Food", 0);
+        //inventory.Add("Food", 0);
 
         // Game screens
         gameUI.SetActive(true);
@@ -80,11 +83,14 @@ public class GameManager : MonoBehaviour
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
-        iceCount.GetComponent<TextMeshProUGUI>().text = "Ice: " + inventory["Ice"];
+        waterCount.GetComponent<TextMeshProUGUI>().text = "Water: " + inventory["Water"];
         fuelCount.GetComponent<TextMeshProUGUI>().text = "Fuel: " + inventory["Fuel"] + "/" + fuelStorage;
+        fertilizerCount.GetComponent<TextMeshProUGUI>().text = "Fertilizer: " + inventory["Fertilizer"];
 
         // Limit FPS to prevent excess GPU/CPU usage
         Application.targetFrameRate = 60;
+
+        playerMovementLock = false;
     }
 
     private void Update()
@@ -115,7 +121,7 @@ public class GameManager : MonoBehaviour
             if (buildMode)
                 ExitBuildMode();
 
-            else if (!buildMode && !isPaused)
+            else if (!buildMode && !isPaused && !playerMovementLock)
                 PauseGame();
 
             else if (isPaused)
@@ -138,8 +144,6 @@ public class GameManager : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    Debug.Log(hit.transform.tag);
-
                     // If the ray hits an object
                     if (hit.transform.GetComponent<BuildableObj>() != null)
                     {
@@ -348,6 +352,7 @@ public class GameManager : MonoBehaviour
         glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
         metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
         quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+        fertilizerCount.GetComponent<TextMeshProUGUI>().text = "Fertilizer: " + inventory["Fertilizer"];
     }
 
     // A function to get this big block of code outside of the main update loop and reduce clutter
@@ -367,6 +372,8 @@ public class GameManager : MonoBehaviour
             { inventory["Metal"] -= amount[materials.IndexOf("Metal")]; }
             if (item == "Quartz")
             { inventory["Quartz"] -= amount[materials.IndexOf("Quartz")]; }
+            if (item == "Fertilizer")
+            { inventory["Fertilizer"] -= amount[materials.IndexOf("Fertilizer")]; }
         }
     }
 
