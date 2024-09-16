@@ -12,6 +12,8 @@ public class HabController : MonoBehaviour
     public GameObject light;
     public Material on;
 
+    public int housingCapacity;
+
     float distanceThreshold;
 
     // Start is called before the first frame update

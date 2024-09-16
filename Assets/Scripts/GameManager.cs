@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject errorMessage;
     public GameObject buildInfo;
 
+    // Other UI
+    public GameObject foodCount;
+
     // Saving
     public List<GameObject> builtObjs;
     public GameObject worldSaver;
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
     public int fuelStorage;
     public bool isPaused = false;
     public bool playerMovementLock;
+    public int maxPopulation;
 
     public bool mouseOverButton = false;
 
@@ -65,12 +69,12 @@ public class GameManager : MonoBehaviour
         inventory.Add("Metal", 100);
         inventory.Add("Quartz", 100);
         inventory.Add("Glass", 0);
-        inventory.Add("Water", 100);
+        inventory.Add("Water", 10);
         inventory.Add("Fuel", 100);
-        inventory.Add("Fertilizer", 100);
+        inventory.Add("Fertilizer", 15);
 
         // These are essential, separate from the inventory resources
-        //inventory.Add("Food", 0);
+        inventory.Add("Food", 10);
 
         // Game screens
         gameUI.SetActive(true);
@@ -86,6 +90,8 @@ public class GameManager : MonoBehaviour
         waterCount.GetComponent<TextMeshProUGUI>().text = "Water: " + inventory["Water"];
         fuelCount.GetComponent<TextMeshProUGUI>().text = "Fuel: " + inventory["Fuel"] + "/" + fuelStorage;
         fertilizerCount.GetComponent<TextMeshProUGUI>().text = "Fertilizer: " + inventory["Fertilizer"];
+
+        foodCount.GetComponent<TextMeshProUGUI>().text = "Food: " + inventory["Food"];
 
         // Limit FPS to prevent excess GPU/CPU usage
         Application.targetFrameRate = 60;
@@ -210,6 +216,7 @@ public class GameManager : MonoBehaviour
                         {
                             clone.GetComponent<HabController>().gameManager = gameObject;
                             clone.GetComponent<HabController>().CheckConnections();
+                            maxPopulation += clone.GetComponent<HabController>().housingCapacity;
                         }
 
                         // if the building has an airlock
@@ -224,24 +231,11 @@ public class GameManager : MonoBehaviour
                             clone.GetComponent<FuelRefinerController>().gameManager = gameObject;
                         }
 
-                        // Update the GUI
-                        //List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
-                        //List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
-
-                        //foreach (string item in clone.GetComponent<BuildableObj>().materials) // Update the player inventory
-                        //{
-                        //    if (item == "Iron Ore")
-                        //    { inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")]; }
-
-                        //    if (item == "Glass")
-                        //    { inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")]; }
-
-                        //    if (item == "Metal")
-                        //    { inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")]; }
-
-                        //    if (item == "Quartz")
-                        //    { inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")]; }
-                        //}
+                        // if the object is a greenhouse
+                        if (clone.GetComponent<GreenhouseController>() != null)
+                        {
+                            clone.GetComponent<GreenhouseController>().gameManager = gameObject;
+                        }
 
                         UpdateInventory(clone.GetComponent<BuildableObj>().materials, clone.GetComponent<BuildableObj>().amount);
 

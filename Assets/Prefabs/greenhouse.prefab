@@ -822,6 +822,7 @@ GameObject:
   - component: {fileID: 4995325100940175278}
   - component: {fileID: 4816684240489726140}
   - component: {fileID: 4816684240489726019}
+  - component: {fileID: 1838006002827389306}
   - component: {fileID: 4930403652666109605}
   - component: {fileID: 7884954731127398116}
   - component: {fileID: 4580356785811031292}
@@ -883,10 +884,7 @@ MonoBehaviour:
   isBuilt: 0
   isPowered: 0
   isAddon: 0
-  generatesResources: 1
-  resourceGenerated: Food
-  generationCooldown: 5
-  storage: 0
+  storage: 25
   isColliding: 0
   materials:
   - Concrete
@@ -915,6 +913,21 @@ MonoBehaviour:
   lightBulb: {fileID: 4816684238969746707}
   light: {fileID: 4816684239003874977}
   on: {fileID: 2100000, guid: c31d248efac8a1241ba0c9d325f7de67, type: 2}
+--- !u!114 &1838006002827389306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627570003404520724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0780426d52e87aa4d8f36ae970c975f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  productionSpeed: 2
+  resourceUseTime: 2
 --- !u!54 &4930403652666109605
 Rigidbody:
   m_ObjectHideFlags: 0

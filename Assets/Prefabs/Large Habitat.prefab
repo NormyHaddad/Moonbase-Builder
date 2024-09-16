@@ -105,9 +105,6 @@ MonoBehaviour:
   isBuilt: 0
   isPowered: 0
   isAddon: 0
-  generatesResources: 0
-  resourceGenerated: 
-  generationCooldown: 0
   storage: 5
   isColliding: 0
   materials:
@@ -163,6 +160,7 @@ MonoBehaviour:
   lightBulb: {fileID: 3587721548023581587}
   light: {fileID: 4070078393995068255}
   on: {fileID: 2100000, guid: 705e4f9e24185c547baf2f315e5e8333, type: 2}
+  housingCapacity: 4
 --- !u!54 &4306739273169644970
 Rigidbody:
   m_ObjectHideFlags: 0

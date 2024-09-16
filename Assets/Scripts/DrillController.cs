@@ -53,8 +53,8 @@ public class DrillController : MonoBehaviour
         // If the ray hits an ore, the drill is not currently mining, the drill is powered, and the drill has enough storage
         if (Physics.Raycast(newRay, out hit, 1, oreLayer) && !isMining && oreStorage < storageLimit && isPowered)
         {
-            Debug.Log(hit.transform.tag);
             oreType = hit.transform.GetComponent<Ore>().oreType;
+            Debug.Log(oreType);
 
             // If the drill is a water extractor, and the targeted ore is water
             if (isWaterExtractor && hit.transform.GetComponent<Ore>().oreType == "Water")
