@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     // Other UI
     public GameObject foodCount;
-
+        
     // Saving
     public List<GameObject> builtObjs;
     public GameObject worldSaver;
@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public bool playerMovementLock;
     public int maxPopulation;
+    public int population;
 
     public bool mouseOverButton = false;
 
@@ -61,17 +62,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1;
+        population = 0;
 
         // New inventory system
-        inventory.Add("Regolith", 100);
-        inventory.Add("Iron Ore", 100);
-        inventory.Add("Concrete", 100);
-        inventory.Add("Metal", 100);
-        inventory.Add("Quartz", 100);
+        inventory.Add("Regolith", 0);
+        inventory.Add("Iron Ore", 0);
+        inventory.Add("Concrete", 0);
+        inventory.Add("Metal", 10);
+        inventory.Add("Quartz", 0);
         inventory.Add("Glass", 0);
-        inventory.Add("Water", 10);
-        inventory.Add("Fuel", 100);
-        inventory.Add("Fertilizer", 15);
+        inventory.Add("Water", 0);
+        inventory.Add("Fuel", 0);
+        inventory.Add("Fertilizer", 25);
 
         // These are essential, separate from the inventory resources
         inventory.Add("Food", 10);
@@ -210,7 +212,7 @@ public class GameManager : MonoBehaviour
                         builtObjs.Add(clone);
                         //worldSaver.GetComponent<SaveGame>().AddObjToList(clone);
 
-                        // Assign GameManager to the scrips on certain objects when built
+                        // Assign GameManager to the scrips on certain objects when built, and do other actions
                         // if the building is a hab
                         if (clone.GetComponent<HabController>() != null)
                         {
@@ -262,42 +264,49 @@ public class GameManager : MonoBehaviour
                         DoErrorMessage("Object must be placed on another object", 6f);
                     }
 
-                    else if (hit.transform.GetComponent<BuildableObj>() != null)
+                    else if (hit.transform.GetComponent<BuildableObj>() != null) // If it is placed on an object
                     {
-                        clone.GetComponent<BuildableObj>().isBuilt = true;
-                        clone.transform.position = hit.transform.GetComponent<BuildableObj>().addonPos.transform.position;
-                        hit.transform.GetComponent<BuildableObj>().addon = clone;
-                        building = false;
-
-                        // Update the GUI
-                        List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
-                        List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
-
-                        // Update the player inventory
-                        foreach (string item in clone.GetComponent<BuildableObj>().materials)
+                        if (hit.transform.GetComponent<BuildableObj>().addon != null) // If it already has an addon
                         {
-                            if (item == "Iron Ore")
-                            {
-                                inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")];
-                                ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
-                            }
+                            DoErrorMessage("Object already has an addon");
+                        }
+                        else
+                        {
+                            clone.GetComponent<BuildableObj>().isBuilt = true;
+                            clone.transform.position = hit.transform.GetComponent<BuildableObj>().addonPos.transform.position;
+                            hit.transform.GetComponent<BuildableObj>().addon = clone;
+                            building = false;
 
-                            if (item == "Glass")
-                            {
-                                inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
-                                glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
-                            }
+                            // Update the GUI
+                            List<string> placedMaterials = clone.GetComponent<BuildableObj>().materials;
+                            List<int> placedAmounts = clone.GetComponent<BuildableObj>().amount;
 
-                            if (item == "Metal")
+                            // Update the player inventory
+                            foreach (string item in clone.GetComponent<BuildableObj>().materials)
                             {
-                                inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
-                                metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
-                            }
+                                if (item == "Iron Ore")
+                                {
+                                    inventory["Iron Ore"] -= placedAmounts[placedMaterials.IndexOf("Iron Ore")];
+                                    ironOreCount.GetComponent<TextMeshProUGUI>().text = "Iron Ore: " + inventory["Iron Ore"];
+                                }
 
-                            if (item == "Quartz")
-                            {
-                                inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
-                                quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+                                if (item == "Glass")
+                                {
+                                    inventory["Glass"] -= placedAmounts[placedMaterials.IndexOf("Glass")];
+                                    glassCount.GetComponent<TextMeshProUGUI>().text = "Glass: " + inventory["Glass"];
+                                }
+
+                                if (item == "Metal")
+                                {
+                                    inventory["Metal"] -= placedAmounts[placedMaterials.IndexOf("Metal")];
+                                    metalCount.GetComponent<TextMeshProUGUI>().text = "Metal: " + inventory["Metal"];
+                                }
+
+                                if (item == "Quartz")
+                                {
+                                    inventory["Quartz"] -= placedAmounts[placedMaterials.IndexOf("Quartz")];
+                                    quartzCount.GetComponent<TextMeshProUGUI>().text = "Quartz: " + inventory["Quartz"];
+                                }
                             }
                         }
                     }

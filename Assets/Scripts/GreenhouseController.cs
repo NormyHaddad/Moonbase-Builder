@@ -9,13 +9,15 @@ public class GreenhouseController : MonoBehaviour
     bool enoughResources = false;
     public GameObject gameManager;
 
-    public float productionSpeed;
+    public float productionCooldown; // In seconds
     public float resourceUseTime;
+
+    float productionRate; // How much is produced per minute
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        productionRate += 1 / productionCooldown * 60;
     }
 
     // Update is called once per frame
@@ -29,11 +31,12 @@ public class GreenhouseController : MonoBehaviour
         if (gameManager.GetComponent<GameManager>().inventory["Water"] <= 0 || gameManager.GetComponent<GameManager>().inventory["Fertilizer"] <= 0)
             enoughResources = false;
 
-        if (gameObject.GetComponent<BuildableObj>().isPowered && !isGenerating && enoughResources)
+        if (gameObject.GetComponent<BuildableObj>().isPowered && !isGenerating && enoughResources) // Make sure to only begin the coroutine once
         {
             StartCoroutine(UseResources());
             StartCoroutine(GenerateFood());
             isGenerating = true;
+            gameManager.GetComponent<PopulationManager>().foodProductionRate += productionRate;
         }
     }
 
@@ -41,12 +44,11 @@ public class GreenhouseController : MonoBehaviour
     {
         while (enoughResources)
         {
-            yield return new WaitForSeconds(productionSpeed);
+            yield return new WaitForSeconds(productionCooldown);
             if (enoughResources)
             {
                 gameManager.GetComponent<GameManager>().inventory["Food"] += 1;
                 gameManager.GetComponent<GameManager>().foodCount.GetComponent<TextMeshProUGUI>().text = "Food: " + gameManager.GetComponent<GameManager>().inventory["Food"];
-                Debug.Log("Food: " + gameManager.GetComponent<GameManager>().inventory["Food"]);
             }
         }
     }
@@ -64,12 +66,12 @@ public class GreenhouseController : MonoBehaviour
                 gameManager.GetComponent<GameManager>().fertilizerCount.GetComponent<TextMeshProUGUI>().text = "Fertilizer: " + gameManager.GetComponent<GameManager>().inventory["Fertilizer"];
             }
 
-            if (!enoughResources)
+            if (!enoughResources) // Make sure to stop the coroutines only once
             {
-                Debug.Log("not enough resources");
                 isGenerating = false;
                 StopCoroutine(GenerateFood());
                 StopCoroutine(UseResources());
+                gameManager.GetComponent<PopulationManager>().foodProductionRate -= productionRate;
             }
         }
     }

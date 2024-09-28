@@ -350,7 +350,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 08a87533aa9506846a5fe8db8f352d71, type: 3}
+  - {fileID: 2100000, guid: 12bbb5cae0319b3408e91329f9e30c10, type: 2}
   - {fileID: 2100000, guid: 14c66c46cc7cf4a4a84f9e31922a2bdc, type: 2}
   - {fileID: -8274133419916619345, guid: 08a87533aa9506846a5fe8db8f352d71, type: 3}
   - {fileID: -2813467912831258332, guid: 08a87533aa9506846a5fe8db8f352d71, type: 3}
@@ -798,6 +798,7 @@ GameObject:
   - component: {fileID: 223239035443267065}
   - component: {fileID: 2994911911711438226}
   - component: {fileID: 6638975540652720228}
+  - component: {fileID: 2705923567323719536}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -832,7 +833,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3
+  m_Intensity: 6
   m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -896,6 +897,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &2705923567323719536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070078393995068255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &5049351660713698869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,7 +1238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b67ced68bd7a2248b847980be8e5ac4, type: 2}
+  - {fileID: 2100000, guid: ecc631f42a9bdee4d86ac8ffd1716406, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
+    public float multiplier;
     public float jumpStrength;
     public float rcsStrength;
     public Transform orientation;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         canJump = true;
         canMove = true;
+        multiplier = 1;
         gravity = gameManager.GetComponent<GameManager>().gravity;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -72,9 +74,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Check if the player is standing on something
         Ray ray = new Ray(transform.position + new Vector3(0f, 0.2f, 0f), Vector3.down);
-        Debug.DrawRay(transform.position + new Vector3(0f, 0.2f, 0f), Vector3.down * 0.2f, Color.magenta, 0.1f);
+        Debug.DrawRay(transform.position + new Vector3(0f, 0.2f, 0f), Vector3.down * 0.5f, Color.magenta, 0.1f);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 0.2f, ~playerLayer)) // Make sure the raycast never hits the player itself
+        if (Physics.Raycast(ray, out hit, 0.5f, ~playerLayer)) // Make sure the raycast never hits the player itself
         {
             isJumping = false;
         }
@@ -105,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Calculate movement direction
             moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            transform.position += moveDirection * moveSpeed * multiplier * Time.deltaTime;
 
             if (horizontalInput == 0 && verticalInput == 0)
             {
@@ -120,6 +122,15 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
             {
                 rb.AddForce(0, -rcsStrength, 0);
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                multiplier = 2f;
+            }
+            else
+            {
+                multiplier = 1;
             }
         }
     }

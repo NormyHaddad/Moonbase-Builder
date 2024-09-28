@@ -80,7 +80,7 @@ public class ShipLandingAnim : MonoBehaviour
         else
         { PlayerPrefs.SetString("Load Data", "no"); }
 
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Outpost Artemis");
     }
     public void Quit()
     {

@@ -10,11 +10,13 @@ public class DrillController : MonoBehaviour
     public LayerMask oreLayer;
     public int storageLimit;
     public ParticleSystem drillFX;
+    public float cooldown;
 
     GameObject player;
     public GameObject addon;
     public GameObject powerIndicator;
     public Material on;
+
     string oreType;
     int oreStorage;
     bool playerInRange;
@@ -106,7 +108,7 @@ public class DrillController : MonoBehaviour
     {
         while (oreStorage < storageLimit)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(cooldown);
             oreStorage += 1;
             collectMessage = "Press C to collect " + oreStorage + " " + oreType;
             // Dont show the tooltip if the player isn't in range

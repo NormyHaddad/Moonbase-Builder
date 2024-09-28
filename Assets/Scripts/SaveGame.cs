@@ -96,25 +96,25 @@ public class SaveGame : MonoBehaviour
                 return i.Object;
             }
         }
-        Debug.Log("No match found");
+        //Debug.Log("No match found");
         return null;
     }
 
     public void AddObjToList(GameObject obj)
     {
-        Debug.Log("Adding " + obj.name + " to list");
+        //Debug.Log("Adding " + obj.name + " to list");
         WorldObjProperties temp = new WorldObjProperties();
-        Debug.Log("Created temp");
+        //Debug.Log("Created temp");
         temp.obj = obj.GetComponent<BuildableObj>().objName;
-        Debug.Log("Assigned obj");
+        //Debug.Log("Assigned obj");
         temp.pos = new JsonVector(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-        Debug.Log("Assigned pos " + obj.transform.position);
+        //Debug.Log("Assigned pos " + obj.transform.position);
         temp.rot = obj.transform.rotation.y;
-        Debug.Log("Assigned rot");
+        //Debug.Log("Assigned rot");
         if (obj.GetComponent<BuildableObj>().addon != null)
         {
             temp.addon = obj.GetComponent<BuildableObj>().addon.GetComponent<BuildableObj>().objName;
-            Debug.Log("Assigned addon");
+            //Debug.Log("Assigned addon");
         }
         else
         {
@@ -123,16 +123,18 @@ public class SaveGame : MonoBehaviour
         if (worldObjects.list != null)
             worldObjects.list.Add(temp);
         else
-            Debug.Log("list is null");
-        Debug.Log("Added temp to list");
+        {
+            //Debug.Log("list is null");
+        }
+        //Debug.Log("Added temp to list");
     }
 
     public void SaveGameState(Vector3 playerPos, Dictionary<string, int> inventory)
     {
         // Here, all the data needed to save is compiled into one class for serialization.
-        Debug.Log(playerPos);
-        Debug.Log(inventory);
-        Debug.Log(worldObjects.list);
+        //Debug.Log(playerPos);
+        //Debug.Log(inventory);
+        //Debug.Log(worldObjects.list);
 
         // Create the PlayerData subclass, the WorldObjects subclass already exists
         PlayerData pData = new PlayerData(playerPos, inventory);
@@ -145,10 +147,10 @@ public class SaveGame : MonoBehaviour
 
     SaveData LoadDataFromFile(string filePath)
     {
-        Debug.Log($"Checking file existence: {filePath}");
+        //Debug.Log($"Checking file existence: {filePath}");
         if (File.Exists(filePath))
         {
-            Debug.Log("File found");
+            //Debug.Log("File found");
             try
             {
                 JObject jsonData;
@@ -162,17 +164,20 @@ public class SaveGame : MonoBehaviour
             }
             catch (System.Exception e)
             {
-                Debug.Log($"Error loading data from file: {e.Message}");
+                //Debug.Log($"Error loading data from file: {e.Message}");
                 return null;
             }
         }
         else
-        { Debug.Log($"File not found: {filePath}"); return null; }
+        { 
+            //Debug.Log($"File not found: {filePath}");
+            return null;
+        }
     }
 
     public void LoadGame()
     {
-        Debug.Log("LoadGame() called");
+        //Debug.Log("LoadGame() called");
         if (PlayerPrefs.GetString("Loaded") != "yes")
         {
             PlayerPrefs.SetString("Loaded", "yes");
@@ -231,10 +236,13 @@ public class SaveGame : MonoBehaviour
             }
             else
             {
-                Debug.Log("Failed to load data from file.");
+                //Debug.Log("Failed to load data from file.");
             }
         }
-        else { Debug.Log("Data previously loaded"); }
+        else
+        { 
+            //Debug.Log("Data previously loaded");
+        }
     }
 
     void SaveDataToFile(SaveData data, string filePath)
@@ -243,13 +251,13 @@ public class SaveGame : MonoBehaviour
         {
             string jsonData = JsonConvert.SerializeObject(data);
             File.WriteAllText(filePath, jsonData);
-            Debug.Log(jsonData);
-            Debug.Log("Data saved to file: " + filePath);
+            //Debug.Log(jsonData);
+            //Debug.Log("Data saved to file: " + filePath);
         }
         else
         {
-            Debug.Log("data is null");
-            Debug.Log(data);
+            //Debug.Log("data is null");
+            //Debug.Log(data);
         }
     }
 }

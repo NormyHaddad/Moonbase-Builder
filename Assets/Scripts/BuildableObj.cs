@@ -38,7 +38,6 @@ public class BuildableObj : MonoBehaviour
         if (other.transform.CompareTag("Building"))
         {
             isColliding = true;
-            Debug.Log("col");
         }
     }
 
@@ -47,7 +46,6 @@ public class BuildableObj : MonoBehaviour
         if (other.transform.CompareTag("Building"))
         {
             isColliding = false;
-            Debug.Log("no col");
         }
     }
 }

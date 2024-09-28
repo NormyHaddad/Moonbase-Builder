@@ -57,7 +57,7 @@ public class FurnaceController : MonoBehaviour
                 gameManager.GetComponent<GameManager>().DoErrorMessage("Not enough iron ore", 4f);
         }
 
-        collectMsg = "Collect " + furnaceOut.ToString() + " metal";
+        collectMsg = "Collect " + furnaceOut.ToString() + " Metal";
         
 
         // Press C to collect smelted ore
@@ -68,7 +68,7 @@ public class FurnaceController : MonoBehaviour
                 "Metal: " + gameManager.GetComponent<GameManager>().inventory["Metal"];
             furnaceOut = 0;
             gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Smelt Ore");
-            collectMsg = "Collect " + furnaceOut.ToString() + " metal";
+            collectMsg = "Collect " + furnaceOut.ToString() + " Metal";
         }
 
         // Only wanna start the coroutine once, and only when there's ore in it, and only when its powered
@@ -92,12 +92,12 @@ public class FurnaceController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             furnaceInv -= 1;
             furnaceOut += 1;
-            collectMsg = "Collect " + furnaceOut.ToString() + " metal";
+            collectMsg = "Collect " + furnaceOut.ToString() + " Metal";
 
             if (playerInRange)
             {
                 if (furnaceOut <= 0) { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F", "Smelt Ore"); }
-                else { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F/C", "Smelt Ore/Collect " + furnaceOut + " ore"); }
+                else { gameManager.GetComponent<GameUiManager>().ShowInteractTooltip("F/C", "Smelt Ore/Collect " + furnaceOut + " Metal"); }
             }
         }
         StopCoroutine(SmeltOre());
