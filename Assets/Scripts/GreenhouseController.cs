@@ -42,6 +42,7 @@ public class GreenhouseController : MonoBehaviour
 
     IEnumerator GenerateFood()
     {
+        Debug.Log("Food generating");
         while (enoughResources)
         {
             yield return new WaitForSeconds(productionCooldown);
@@ -55,6 +56,7 @@ public class GreenhouseController : MonoBehaviour
 
     IEnumerator UseResources()
     {
+        Debug.Log("Resources used");
         while (enoughResources)
         {
             yield return new WaitForSeconds(resourceUseTime);

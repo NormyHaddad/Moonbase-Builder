@@ -177,7 +177,7 @@ public class SaveGame : MonoBehaviour
 
     public void LoadGame()
     {
-        //Debug.Log("LoadGame() called");
+        // If the player chooses to load a save
         if (PlayerPrefs.GetString("Loaded") != "yes")
         {
             PlayerPrefs.SetString("Loaded", "yes");
@@ -202,6 +202,7 @@ public class SaveGame : MonoBehaviour
                     {
                         clone.GetComponent<HabController>().gameManager = gameManager;
                         clone.GetComponent<HabController>().CheckConnections();
+                        gameManager.GetComponent<GameManager>().maxPopulation += clone.GetComponent<HabController>().housingCapacity;
                     }
 
                     // If the building is a refinery
@@ -218,6 +219,12 @@ public class SaveGame : MonoBehaviour
                     if (clone.GetComponent<BuildableObj>().objType == "Fuel storage")
                     {
                         gameManager.GetComponent<GameManager>().fuelStorage += clone.GetComponent<BuildableObj>().storage;
+                    }
+                    
+                    // If the building is a greenhouse
+                    if (clone.GetComponent<GreenhouseController>() != null)
+                    {
+                        clone.GetComponent<GreenhouseController>().gameManager = gameManager;
                     }
 
                     // If the object has an addon
