@@ -8,9 +8,9 @@ public class HabController : MonoBehaviour
     public GameObject addon;
     public List<GameObject> connectorWalls;
 
-    public GameObject lightBulb;
-    public GameObject light;
+    public List<GameObject> lights;
     public Material on;
+    public Material off;
 
     public int housingCapacity;
 
@@ -31,8 +31,23 @@ public class HabController : MonoBehaviour
         // If the hab is powered, indicate it.
         if (addon != null && addon.GetComponent<BuildableObj>().addonType == "PowerGen")
         {
-            lightBulb.GetComponent<MeshRenderer>().material = on;
-            light.SetActive(true);
+            foreach (GameObject light in lights)
+            {
+                MeshRenderer renderer = light.GetComponent<Lightbulb>().bulb.GetComponent<MeshRenderer>();
+                Material[] materials = renderer.materials;
+
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    Debug.Log(materials[i].name);
+                    if (materials[i].name == "Glass (Instance)")
+                    {
+                        materials[i] = on;
+                        break;
+                    }
+                }
+                renderer.materials = materials;
+                light.GetComponent<Lightbulb>().light.SetActive(true);
+            }
         }
     }
 
