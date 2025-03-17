@@ -10,6 +10,8 @@ public class CameraMovement : MonoBehaviour
     public Camera cam;
 
     public float camMoveSpeed;
+    public int minCamHeight;
+    public int maxCamHeight;
 
     //Transform moveOrientation;
 
@@ -41,6 +43,9 @@ public class CameraMovement : MonoBehaviour
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
             transform.position += (transform.forward * verticalInput + transform.right * horizontalInput) * camMoveSpeed * Time.deltaTime;
+
+            if (Input.GetKey(KeyCode.LeftShift) && gameObject.transform.position.y < maxCamHeight) { transform.position += new Vector3(0, camMoveSpeed * Time.deltaTime, 0); }
+            if (Input.GetKey(KeyCode.LeftControl) && gameObject.transform.position.y > minCamHeight) { transform.position -= new Vector3(0, camMoveSpeed * Time.deltaTime, 0); }
 
             // Rotate camera
             if (Input.GetKey(KeyCode.Q))

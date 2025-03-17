@@ -2227,7 +2227,7 @@ ReflectionProbe:
   m_TimeSlicingMode: 1
   m_Resolution: 128
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 5.4, y: 1.5, z: 5.4}
+  m_BoxSize: {x: 5.4, y: 2, z: 5.4}
   m_BoxOffset: {x: 0, y: 0, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
@@ -2857,7 +2857,7 @@ GameObject:
   - component: {fileID: 176749386685625899}
   m_Layer: 0
   m_Name: Habitat Furnished
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
