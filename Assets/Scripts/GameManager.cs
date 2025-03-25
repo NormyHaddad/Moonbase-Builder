@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public float gravity;
     public GameObject player;
 
+    public int maxFPS;
+
     // UI
     public GameObject buildScreen;
     public GameObject pauseScreen;
@@ -65,14 +67,14 @@ public class GameManager : MonoBehaviour
         population = 0;
 
         // New inventory system
-        inventory.Add("Regolith", 430);
-        inventory.Add("Iron Ore", 320);
-        inventory.Add("Concrete", 200);
-        inventory.Add("Metal", 190);
-        inventory.Add("Quartz", 540);
+        inventory.Add("Regolith", 0);
+        inventory.Add("Iron Ore", 0);
+        inventory.Add("Concrete", 0);
+        inventory.Add("Metal", 0);
+        inventory.Add("Quartz", 0);
         inventory.Add("Glass", 0);
-        inventory.Add("Water", 80);
-        inventory.Add("Fuel", 10);
+        inventory.Add("Water", 0);
+        inventory.Add("Fuel", 0);
         inventory.Add("Fertilizer", 0);
 
         // These are essential, separate from the inventory resources
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
         foodCount.GetComponent<TextMeshProUGUI>().text = "Food: " + inventory["Food"];
 
         // Limit FPS to prevent excess GPU/CPU usage
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = maxFPS;
 
         playerMovementLock = false;
     }
@@ -333,6 +335,7 @@ public class GameManager : MonoBehaviour
     {
         if (builtObjs != null)
         {
+            worldSaver.GetComponent<SaveGame>().worldObjects.list.Clear(); // Clear the list so we dont get duplicate objects
             foreach (GameObject obj in builtObjs)
             {
                 Debug.Log(obj);

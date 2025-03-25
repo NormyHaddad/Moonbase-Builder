@@ -102,19 +102,13 @@ public class SaveGame : MonoBehaviour
 
     public void AddObjToList(GameObject obj)
     {
-        //Debug.Log("Adding " + obj.name + " to list");
         WorldObjProperties temp = new WorldObjProperties();
-        //Debug.Log("Created temp");
         temp.obj = obj.GetComponent<BuildableObj>().objName;
-        //Debug.Log("Assigned obj");
         temp.pos = new JsonVector(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-        //Debug.Log("Assigned pos " + obj.transform.position);
-        temp.rot = obj.transform.rotation.y;
-        //Debug.Log("Assigned rot");
+        temp.rot = obj.transform.rotation.eulerAngles.y;
         if (obj.GetComponent<BuildableObj>().addon != null)
         {
             temp.addon = obj.GetComponent<BuildableObj>().addon.GetComponent<BuildableObj>().objName;
-            //Debug.Log("Assigned addon");
         }
         else
         {
@@ -123,19 +117,12 @@ public class SaveGame : MonoBehaviour
         if (worldObjects.list != null)
             worldObjects.list.Add(temp);
         else
-        {
-            //Debug.Log("list is null");
-        }
-        //Debug.Log("Added temp to list");
+            Debug.Log("list is null");
     }
 
     public void SaveGameState(Vector3 playerPos, Dictionary<string, int> inventory)
     {
         // Here, all the data needed to save is compiled into one class for serialization.
-        //Debug.Log(playerPos);
-        //Debug.Log(inventory);
-        //Debug.Log(worldObjects.list);
-
         // Create the PlayerData subclass, the WorldObjects subclass already exists
         PlayerData pData = new PlayerData(playerPos, inventory);
         WorldObjects objectList = worldObjects;
@@ -235,6 +222,7 @@ public class SaveGame : MonoBehaviour
                         clone.GetComponent<BuildableObj>().addon = addon;
                     }
                     AddObjToList(clone);
+                    gameManager.GetComponent<GameManager>().builtObjs.Add(clone); // Add back to the builtObjs list so they can be resaved again
                 }
                 gameManager.GetComponent<GameManager>().inventory = loadedData.playerData.inventory;
                 JsonVector pos = loadedData.playerData.position;

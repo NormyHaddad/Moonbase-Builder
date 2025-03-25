@@ -1,20 +1,20 @@
 {
   "playerData": {
     "position": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
+      "x": -2.27955914,
+      "y": 8.913487,
+      "z": -5.729434
     },
     "inventory": {
       "Regolith": 430,
-      "Iron Ore": 275,
-      "Concrete": 110,
-      "Metal": 80,
-      "Quartz": 448,
+      "Iron Ore": 280,
+      "Concrete": 120,
+      "Metal": 10,
+      "Quartz": 456,
       "Glass": 0,
       "Water": 80,
       "Fuel": 10,
-      "Fertilizer": 15,
+      "Fertilizer": 0,
       "Food": 10
     }
   },
@@ -24,19 +24,19 @@
         "obj": "Habitat",
         "addon": "Solar Panel",
         "pos": {
-          "x": 8.0,
+          "x": 9.5,
           "y": 0.0,
-          "z": 3.0
+          "z": -0.5
         },
-        "rot": 0.7071068
+        "rot": 90.0
       },
       {
         "obj": "Large Habitat",
         "addon": "Solar Panel",
         "pos": {
-          "x": 20.0,
+          "x": 21.5,
           "y": 0.0,
-          "z": 3.0
+          "z": -0.5
         },
         "rot": 0.0
       },
@@ -44,9 +44,9 @@
         "obj": "Greenhouse",
         "addon": "Solar Panel",
         "pos": {
-          "x": 36.0,
+          "x": 37.5,
           "y": 0.0,
-          "z": 3.0
+          "z": -0.5
         },
         "rot": 0.0
       },
@@ -54,39 +54,29 @@
         "obj": "Habitat",
         "addon": "Solar Panel",
         "pos": {
-          "x": 20.0,
+          "x": 9.5,
           "y": 0.0,
-          "z": 15.0
+          "z": 7.5
         },
-        "rot": 1.0
-      },
-      {
-        "obj": "Habitat",
-        "addon": "Solar Panel",
-        "pos": {
-          "x": 12.0,
-          "y": 0.0,
-          "z": 15.0
-        },
-        "rot": 1.0
+        "rot": 90.0
       },
       {
         "obj": "Lookout",
         "addon": "Solar Panel",
         "pos": {
-          "x": 20.0,
+          "x": 21.5,
           "y": 0.0,
-          "z": -8.0
+          "z": -11.5
         },
         "rot": 0.0
       },
       {
-        "obj": "Drill",
+        "obj": "Water Extractor",
         "addon": "Solar Panel",
         "pos": {
-          "x": -26.0,
+          "x": -8.5,
           "y": 0.0,
-          "z": 8.0
+          "z": 19.0
         },
         "rot": 0.0
       },
@@ -101,12 +91,32 @@
         "rot": 0.0
       },
       {
-        "obj": "Water Extractor",
+        "obj": "Drill",
+        "addon": "none",
+        "pos": {
+          "x": -24.5,
+          "y": 0.0,
+          "z": -3.0
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Fuel Tank",
+        "addon": "none",
+        "pos": {
+          "x": -18.0,
+          "y": 0.0,
+          "z": -22.5
+        },
+        "rot": 0.0
+      },
+      {
+        "obj": "Refinery",
         "addon": "Solar Panel",
         "pos": {
-          "x": -7.0,
+          "x": -3.5,
           "y": 0.0,
-          "z": 19.0
+          "z": -22.0
         },
         "rot": 0.0
       }
